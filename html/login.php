@@ -6,7 +6,7 @@
                     <h2 class="panel-title" id='menuText'>Login</h2>
                 </div>
                 <div class="panel-body">
-
+                  <?php echo "<img src='" . $page_logo . "' height='" . $logo_height . "' width='" . $logo_width . "' class='img-responsive center-block' style='padding-bottom:15px' alt='Logo'>"; ?>
                   <!-- Login Menu -->
                     <div id="loginbox">
                       <form role="form" method="POST">
@@ -46,6 +46,15 @@
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Email" name="email" type="email" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Street" name="street" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="City" name="city" type="text" required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Postcode" name="postcode" type="text" required>
                             </div>
                             <div class="form-group">
                                 <input class="form-control" placeholder="Username" name="username" type="text" required>

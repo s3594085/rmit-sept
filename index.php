@@ -31,6 +31,8 @@ $control = new $url[0];
 
 if (isset($url[1])) {
   $control->{$url[1]}();
+} else {
+  $control->noPageFound();
 }
 
 
