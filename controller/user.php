@@ -6,7 +6,7 @@ include("library/layout.php");
 class User {
 
   function __construct() {
-    $this->login();
+    //$this->login();
   }
 
   public function login() {
@@ -17,6 +17,10 @@ class User {
 
   public function auth() {
     
+  }
+
+  public function noPageFound() {
+    echo "This page do not exist!";
   }
 
 }
