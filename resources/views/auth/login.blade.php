@@ -55,9 +55,9 @@
                   </a>
                 </div>
               </div>
-              <a class="btn-link" href="{{ route('password.request') }}">
+             <!-- <a class="btn-link" href="{{ route('password.request') }}">
                 Forgot Your Password?
-              </a>
+              </a>-->
             </fieldset>
           </form>
         </div>
