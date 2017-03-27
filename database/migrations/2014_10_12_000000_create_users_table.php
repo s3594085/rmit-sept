@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('mobile');
             $table->string('street');
             $table->string('city');
-            $table->integer('level')->default(1);
+            $table->integer('owner')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
