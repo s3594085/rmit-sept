@@ -37,7 +37,7 @@
 
               <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
 
-                <input id="mobile" type="text" placeholder="Australian mobile starts with 04" class="form-control" name="mobile" value="{{ old('mobile') }}" required>
+                <input id="mobile" type="text" placeholder="Mobile" class="form-control" name="mobile" value="{{ old('mobile') }}" required>
 
                 @if ($errors->has('mobile'))
                 <span class="help-block">
@@ -91,9 +91,9 @@
               </div>
               <div class="form-group">
                 <div style="padding-top:10px; font-size:85%" >
-                  Don't have an account?
+                  Already have an account?
                   <a href="{{ route('login') }}">
-                    Sign Up Here
+                    Sign In Here
                   </a>
                 </div>
               </div>
