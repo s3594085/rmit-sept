@@ -133,7 +133,7 @@ window.Laravel = {!! json_encode([
               <a href="#"><i class="fa fa-group fa-fw"></i> Employee<span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <li>
-                  <a href="#">Create Employee</a>
+                  <a href="{{ url('/addnewemp') }}">Create Employee</a>
                 </li>
                 <li>
                   <a href="#">Manage Empolyee</a>
