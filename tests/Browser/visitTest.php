@@ -10,12 +10,15 @@ class visitTest extends DuskTestCase
 {
     /**
      * A Dusk test example.
-     *
+     * @group testVisit
      * @return void
      */
 
     use DatabaseMigrations;
 
+
+    // User class create() to create a user
+    // make() to create random user
     public function createUser() {
       $user = factory(User::class)->create(
         ['email' => 'test@test.com',
@@ -27,32 +30,38 @@ class visitTest extends DuskTestCase
       return $user;
     }
 
+    // visit register path test
     public function testVisitRegister()
     {
         $this->browse(function ($browser) {
             $browser->visit('/register')
-                    ->assertSee('Register');
+                    ->assertSee('Register')
+                    ->assertPathIs('/register');
         });
     }
 
+    // visit login path test
     public function testVisitLogin()
     {
         $this->browse(function ($browser) {
             $browser->visit('/login')
-                    ->assertSee('Login');
+                    ->assertSee('Login')
+                    ->assertPathIs('/login');
         });
     }
 
+    // login to home path
     public function testVisitDashboard()
     {
         $user = $this->createUser();
 
         $this->browse(function ($browser) use($user) {
-            $browser->visit('/')
+            $browser->visit('/home')
                     ->type('email', $user->email)
                     ->type('password', 'testpassword')
                     ->press('login')
-                    ->assertSee('Dashboard');
+                    ->assertSee('Dashboard')
+                    ->assertPathIs('/home');
         });
     }
 
@@ -60,6 +69,7 @@ class visitTest extends DuskTestCase
     {
         $user = $this->createUser();
 
+        // mock user session
         $this->actingAs($user);
 
         $this->browse(function ($browser) use($user) {
@@ -71,4 +81,20 @@ class visitTest extends DuskTestCase
         });
 
     }
+/*
+    public function testVisitOwnerPage()
+    {
+        $user = $this->createUser();
+        $user->makeOwner('owner');
+
+        // mock user session
+        $this->actingAs($user);
+
+        $this->browse(function ($browser) use($user) {
+            //Visit register or login page when logged in
+            $browser->visit('/home')
+                    ->assertSee('Owner Page');
+        });
+*/
+    
 }
