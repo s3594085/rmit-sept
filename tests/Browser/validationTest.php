@@ -10,7 +10,7 @@ class validationTest extends DuskTestCase
 {
     /**
      * A Dusk test example.
-     *
+     * @group validationTest
      * @return void
      */
 
@@ -28,6 +28,8 @@ class validationTest extends DuskTestCase
       return $user;
     }
 
+
+    // validation test on login
     public function testWrongEmailPassword()
     {
         $this->browse(function ($browser) {
@@ -39,6 +41,7 @@ class validationTest extends DuskTestCase
         });
     }
 
+    // validation test on create user
     public function testRegisterValidation()
     {
         $user = $this->createUser();
@@ -56,7 +59,7 @@ class validationTest extends DuskTestCase
                     ->type('password_confirmation', 'wrong testpassword')
                     ->press('register')
                     ->assertSee('The password confirmation does not match.')
-                    
+
                     //Test registering existing user
                     ->type('email', $user->email)
                     ->type('password', 'testpassword')

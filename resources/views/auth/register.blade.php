@@ -91,9 +91,9 @@
               </div>
               <div class="form-group">
                 <div style="padding-top:10px; font-size:85%" >
-                  Don't have an account?
+                  Already have an account?
                   <a href="{{ route('login') }}">
-                    Sign Up Here
+                    Sign In Here
                   </a>
                 </div>
               </div>
