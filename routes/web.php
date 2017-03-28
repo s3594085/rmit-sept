@@ -28,3 +28,5 @@ Route::get('/employee/delete/{id}', 'EmployeeController@delete');
 
 Route::post('/employeeTime', 'EmployeeController@createTime')->name('employeeTime');
 Route::get('/employeeTime/delete/{id}', 'EmployeeController@deleteTime');
+
+Route::get('/addnewemp', 'AddnewempController@index');
