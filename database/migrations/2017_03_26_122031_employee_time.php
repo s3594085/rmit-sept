@@ -32,9 +32,9 @@ class EmployeeTime extends Migration
             $table->increments('id');
             $table->integer('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
-            $table->char('day', 2);
-            $table->timestamp('start');
-            $table->timestamp('end');
+            $table->string('day');
+            $table->time('start');
+            $table->time('end');
             $table->timestamps();
         });
     }
