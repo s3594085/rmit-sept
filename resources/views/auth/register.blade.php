@@ -69,9 +69,9 @@
               </div>
 
               <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-
-                <input id="password" type="password" placeholder="Password" class="form-control" name="password" required>
-
+                <input id="password" type="password" placeholder="Password" class="form-control" name="password"
+                  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                 @if ($errors->has('password'))
                 <span class="help-block">
                   <strong>{{ $errors->first('password') }}</strong>
