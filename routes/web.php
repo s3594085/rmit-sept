@@ -23,10 +23,11 @@ Route::get('/home', 'HomeController@index');
 Route::get('/debug', 'DebugController@index');
 Route::get('/debug/{id}', 'DebugController@swapRole');
 
-Route::post('/employee', 'EmployeeController@create')->name('employee');
+Route::get('/manageemployee', 'EmployeeController@manage')->name('manage_employee');
+Route::get('/addemployee', 'EmployeeController@index')->name('add_employee');
 Route::get('/employee/delete/{id}', 'EmployeeController@delete');
+Route::get('/employee/{id}', 'EmployeeController@page');
+Route::post('/createemployee', 'EmployeeController@create')->name('create_employee');
 
-Route::post('/employeeTime', 'EmployeeController@createTime')->name('employeeTime');
-Route::get('/employeeTime/delete/{id}', 'EmployeeController@deleteTime');
-
-Route::get('/addnewemp', 'AddnewempController@index');
+Route::post('/employeeavailability', 'EmployeeController@createAvailability')->name('create_availability');
+Route::get('/employeeavailability/delete/{id}', 'EmployeeController@deleteAvailability');

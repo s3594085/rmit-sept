@@ -16,17 +16,35 @@
 -->
 
 <!-- From admin_bs -->
+<!-- Bootstrap Core CSS -->
 <link href="{{ asset('admin_bs/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+<!-- MetisMenu CSS -->
 <link href="{{ asset('admin_bs/vendor/metisMenu/metisMenu.min.css') }}" rel="stylesheet">
+<!-- Custom CSS -->
 <link href="{{ asset('admin_bs/dist/css/sb-admin-2.css') }}" rel="stylesheet">
+<!-- Custom Fonts -->
 <link href="{{ asset('admin_bs/vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+<!-- DataTables CSS -->
+<link href="{{ asset('admin_bs/vendor/datatables-plugins/dataTables.bootstrap.css') }}" rel="stylesheet">
+<!-- DataTables Responsive CSS -->
+<link href="{{ asset('admin_bs/vendor/datatables-responsive/dataTables.responsive.css') }}" rel="stylesheet">
+<!-- Date Time Picker -->
+<link href="{{ asset('admin_bs/vendor/bootstrap/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
 
 <!-- Scripts -->
 <script>
-window.Laravel = {!! json_encode([
-  'csrfToken' => csrf_token(),
-]) !!};
+  window.Laravel = {!! json_encode([
+    'csrfToken' => csrf_token(),
+  ]) !!};
 </script>
+
+<!-- jQuery -->
+<script src="{{ asset('admin_bs/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('admin_bs/vendor/bootstrap/js/moment.js') }}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{{ asset('admin_bs/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('admin_bs/vendor/bootstrap/js/bootstrap-datetimepicker.min.js') }}"></script>
+
 </head>
 <body>
   <div id="wrapper">
@@ -133,10 +151,10 @@ window.Laravel = {!! json_encode([
               <a href="#"><i class="fa fa-group fa-fw"></i> Employee<span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <li>
-                  <a href="{{ url('/addnewemp') }}">Create Employee</a>
+                  <a href="{{ route('add_employee') }}">Create Employee</a>
                 </li>
                 <li>
-                  <a href="#">Manage Empolyee</a>
+                  <a href="{{ route('manage_employee') }}">Manage Empolyee</a>
                 </li>
               </ul>
             </li>
@@ -173,17 +191,17 @@ window.Laravel = {!! json_encode([
   <!-- Scripts -->
   <!--<script src="{{ asset('js/app.js') }}"></script>-->
 
-  <!-- jQuery -->
-  <script src="{{ asset('admin_bs/vendor/jquery/jquery.min.js') }}"></script>
-
-  <!-- Bootstrap Core JavaScript -->
-  <script src="{{ asset('admin_bs/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
 
   <!-- Metis Menu Plugin JavaScript -->
-  <script src="{{ asset('admin_bs//vendor/metisMenu/metisMenu.min.js') }}"></script>
+  <script src="{{ asset('admin_bs/vendor/metisMenu/metisMenu.min.js') }}"></script>
 
   <!-- Custom Theme JavaScript -->
   <script src="{{ asset('admin_bs/dist/js/sb-admin-2.js') }}"></script>
+
+  <!-- DataTables JavaScript -->
+  <script src="{{ asset('admin_bs/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('admin_bs/vendor/datatables-plugins/dataTables.bootstrap.min.js') }}"></script>
+  <script src="{{ asset('admin_bs/vendor/datatables-responsive/dataTables.responsive.js') }}"></script>
 
 </body>
 </html>
