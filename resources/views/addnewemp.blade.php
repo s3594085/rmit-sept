@@ -11,58 +11,71 @@
   </div>
 
   <div class="row">
-    <div class="col-md-7 col-md-offset-3">
+    <div class="col-lg-6 col-lg-offset-2">
       <div class="panel panel-default">
         <div class="panel-heading">
           Add new employees here
         </div>
-      <div class="panel-body">
-      <form id="addnewemp">
-        <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}" style="text-align:center;">
-        Fisrt Name<br>
-        <input id="firstname" type="text" name="firstname" style="width:450px;margin-left:50px" placeholder="First Name" class="form-control" value="{{ old('firstname') }}" required autofocus>
+        <div class="panel-body">
+             @if (Session::has('success'))
+             <div class="alert alert-success alert-dismissable">
+                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                 {{ Session::get('success') }}
+             </div>
+             @endif
+             <form id="addnewemp" role="form" method="POST" action="{{ route('create_employee') }}">
+               {{ csrf_field() }}
+               <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}" style="text-align:left;">
+                 <h5>Name</h5>
+                 <input id="lastname" type="text" name="name" placeholder="Name" class="form-control" value="{{ old('name') }}" required autofocus>
 
-        @if ($errors->has('firstname'))
-        <span class="help-block">
-          <strong>{{ $errors->first('firstname') }}</strong>
-        </span>
-        @endif
-      </div>
-     <br>
-      <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}" style="text-align:center;">
-      Last Name<br>
-      <input id="lastname" type="text" name="lastname" style="width:450px;margin-left:50px" placeholder="Last Name" class="form-control" value="{{ old('lastname') }}" required autofocus>
+                 @if ($errors->has('name'))
+                          <span class="help-block">
+                            <strong>{{ $errors->first('name') }}</strong>
+                          </span>
+                        @endif
+                        </div>
+                        <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}" style="text-align:left;">
+                          <h5>Mobile</h5>
+                          <input id="mobile" type="number" placeholder="Mobile"   class="form-control" name="mobile" value="{{ old('mobile') }}" required>
 
-      @if ($errors->has('lastname'))
-      <span class="help-block">
-        <strong>{{ $errors->first('lastname') }}</strong>
-      </span>
-      @endif
-    </div>
-    <br>
-    <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}" style="text-align:center;">
-      Mobile (Australian mobile starts with 04)<br>
-      <input id="mobile" type="number" placeholder="Mobile" style="width:450px;margin-left:50px"  class="form-control" name="mobile" value="{{ old('mobile') }}" required>
+                          @if ($errors->has('mobile'))
+                                 <span class="help-block">
+                                    <strong>{{ $errors->first('mobile') }}</strong>
+                                  </span>
+                                  @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}" style="text-align:left;">
+                                  <h5>Email Address</h5>
+                                  <input id="email" type="email" placeholder="Email"  class="form-control" name="email" value="{{ old('email') }}" required>
 
-      @if ($errors->has('mobile'))
-      <span class="help-block">
-        <strong>{{ $errors->first('mobile') }}</strong>
-      </span>
-      @endif
-    </div>
-    <br>
-    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}" style="text-align:center;">
-      Email Address<br>
-      <input id="email" type="email" placeholder="Email" style="width:450px;margin-left:50px" class="form-control" name="email" value="{{ old('email') }}" required>
+                                  @if ($errors->has('email'))
+                                          <span class="help-block">
+                                             <strong>{{ $errors->first('email') }}</strong>
+                                           </span>
+                                           @endif
+                                         </div>
+                                         <div class="form-group{{ $errors->has('street') ? ' has-error' : '' }}" style="text-align:left;">
+                                           <h5>Street</h5>
+                                           <input id="street" type="text" placeholder="Street"  class="form-control" name="street" value="{{ old('street') }}" required>
 
-      @if ($errors->has('email'))
-      <span class="help-block">
-        <strong>{{ $errors->first('email') }}</strong>
-      </span>
-      @endif
-    </div>
-    <br>
-    <div id="availability" style="text-align:center;">
+                                           @if ($errors->has('street'))
+                                                    <span class="help-block">
+                                                     <strong>{{ $errors->first('street') }}</strong>
+                                                   </span>
+                                                   @endif
+                                                 </div>
+                                                 <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}" style="text-align:left;">
+                                                   <h5>City</h5>
+                                                   <input id="city" type="text" placeholder="City"  class="form-control" name="city" value="{{ old('city') }}" required>
+
+                                                   @if ($errors->has('city'))
+                                                    <span class="help-block">
+                                                      <strong>{{ $errors->first('city') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                  </div>
+  <!--  <div id="availability" style="text-align:center;">
       Availability<br>
       <textarea name="message" rows="4" cols="60" style="width:400px;margin-left:45px" required></textarea>
     </div>
@@ -104,12 +117,12 @@
       <button type="button" style="margin-top:2em">Add Availability</button>
     </div>
     <br>
-    <br>
+    <br>-->
     <div id="decide">
-      <button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-times"></i></button>
-      <span style="margin-left:200px"><button type="button" class="btn btn-warning btn-circle btn-lg"><i class="fa fa-check"></i></button></span>
+      <span><button type="submit" class="btn btn-warning btn-circle btn-lg center-block"><i class="fa fa-check"></i></button></span>
     </div>
       </form>
+    </div>
     </div>
     </div>
     </div>
