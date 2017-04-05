@@ -11,51 +11,51 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LoginTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+  /**
+  * A basic test example.
+  *
+  * @return void
+  */
 
-     use DatabaseMigrations;
+  use DatabaseMigrations;
 
 
-     public function createUser() {
+  public function createUser() {
 
-       $user = factory(User::class)->create(
-         [
-          'name' => 'Jane',
-          'email' => 'test@test.com',
-          'mobile' => '041234567',
-          'street' => 'test st',
-          'city' => 'test city',
-          'password' => bcrypt('testpassword'),]);
+    $user = factory(User::class)->create(
+      [
+        'name' => 'Jane',
+        'email' => 'test@test.com',
+        'mobile' => '041234567',
+        'street' => 'test st',
+        'city' => 'test city',
+        'password' => bcrypt('testpassword'),]);
 
-       return $user;
-     }
+        return $user;
+      }
 
-    public function testLoginFormShows()
-    {
+      public function testLoginFormShows()
+      {
         $response = $this->call('GET','login');
         $this->assertTrue($response->isOk());
-    }
+      }
 
-    public function testInvalidAccountLogin(){
+      public function testInvalidAccountLogin(){
         $User=[
           'email' => 'test@test.com',
           'password' => 'testpassword'
         ];
         $response = $this->call('POST','login',$User);
         $this->assertFalse($response->isok());
-    }
+      }
 
-    public function testInvalidPasswordLogin(){
-      $Account = $this->createUser();
+      public function testInvalidPasswordLogin(){
+        $Account = $this->createUser();
         $User=[
           'email' => 'test@test.com',
           'password' => 'wrongpassword'
         ];
         $response = $this->call('POST','login', $User);
         $this->assertFalse($response->isOk());
+      }
     }
-}
