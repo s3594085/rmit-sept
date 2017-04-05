@@ -16,29 +16,35 @@
 -->
 
 <!-- From admin_bs -->
+<!-- Bootstrap Core CSS -->
 <link href="{{ asset('admin_bs/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+<!-- MetisMenu CSS -->
 <link href="{{ asset('admin_bs/vendor/metisMenu/metisMenu.min.css') }}" rel="stylesheet">
+<!-- Custom CSS -->
 <link href="{{ asset('admin_bs/dist/css/sb-admin-2.css') }}" rel="stylesheet">
+<!-- Custom Fonts -->
 <link href="{{ asset('admin_bs/vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 <!-- DataTables CSS -->
-  <link href="{{ asset('admin_bs/vendor/datatables-plugins/dataTables.bootstrap.css') }}" rel="stylesheet">
-  <!-- DataTables Responsive CSS -->
-  <link href="{{ asset('admin_bs/vendor/datatables-responsive/dataTables.responsive.css') }}" rel="stylesheet">
-  <!-- Date Time Picker -->
-  <link href="{{ asset('admin_bs/vendor/bootstrap/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
+<link href="{{ asset('admin_bs/vendor/datatables-plugins/dataTables.bootstrap.css') }}" rel="stylesheet">
+<!-- DataTables Responsive CSS -->
+<link href="{{ asset('admin_bs/vendor/datatables-responsive/dataTables.responsive.css') }}" rel="stylesheet">
+<!-- Date Time Picker -->
+<link href="{{ asset('admin_bs/vendor/bootstrap/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
 
 <!-- Scripts -->
 <script>
   window.Laravel = {!! json_encode([
     'csrfToken' => csrf_token(),
-  ]) !!};</script>
+  ]) !!};
+</script>
 
-  <!-- jQuery -->
-  <script src="{{ asset('admin_bs/vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('admin_bs/vendor/bootstrap/js/moment.js') }}"></script>
-  <!-- Bootstrap Core JavaScript -->
-  <script src="{{ asset('admin_bs/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('admin_bs/vendor/bootstrap/js/bootstrap-datetimepicker.min.js') }}"></script>
+<!-- jQuery -->
+<script src="{{ asset('admin_bs/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('admin_bs/vendor/bootstrap/js/moment.js') }}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{{ asset('admin_bs/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('admin_bs/vendor/bootstrap/js/bootstrap-datetimepicker.min.js') }}"></script>
+
 </head>
 <body>
   <div id="wrapper">
@@ -154,13 +160,10 @@
             </li>
 
             <li>
-              <a href="#"><i class="fa fa-calendar fa-fw"></i> Timetable<span class="fa arrow"></span></a>
+              <a href="#"><i class="fa fa-calendar fa-fw"></i> Booking<span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <li>
-                  <a href="#">Create Timetable</a>
-                </li>
-                <li>
-                  <a href="#">Manage Timetable</a>
+                  <a href="{{ route('booking_sum') }}">View Booking</a>
                 </li>
               </ul>
             </li>
@@ -186,17 +189,16 @@
   <!--<script src="{{ asset('js/app.js') }}"></script>-->
 
 
-
   <!-- Metis Menu Plugin JavaScript -->
-<script src="{{ asset('admin_bs/vendor/metisMenu/metisMenu.min.js') }}"></script>
+  <script src="{{ asset('admin_bs/vendor/metisMenu/metisMenu.min.js') }}"></script>
 
   <!-- Custom Theme JavaScript -->
   <script src="{{ asset('admin_bs/dist/js/sb-admin-2.js') }}"></script>
 
   <!-- DataTables JavaScript -->
-    <script src="{{ asset('admin_bs/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('admin_bs/vendor/datatables-plugins/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('admin_bs/vendor/datatables-responsive/dataTables.responsive.js') }}"></script>
+  <script src="{{ asset('admin_bs/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('admin_bs/vendor/datatables-plugins/dataTables.bootstrap.min.js') }}"></script>
+  <script src="{{ asset('admin_bs/vendor/datatables-responsive/dataTables.responsive.js') }}"></script>
 
 </body>
 </html>
