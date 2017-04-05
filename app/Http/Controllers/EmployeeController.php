@@ -31,25 +31,23 @@ class EmployeeController extends Controller
     }
 
     public function create(Request $data) {
-      $messages = ['mobile.regex' => "Please enter a valid mobile number. Eg. 04********"];
-      $this->validate($data, [
-          'name' => 'required|max:255',
-          'email' => 'required|email|max:255|unique:employees',
-          'mobile' => 'required|regex:/^04[0-9]{8}$/',
-          'street' => 'required|max:255',
-          'city' => 'required|max:255',
-      ],$messages);
+      $valid = Employee::validator($data->all());
 
-      Employee::create([
-          'name' => $data['name'],
-          'email' => $data['email'],
-          'mobile' => $data['mobile'],
-          'street' => $data['street'],
-          'city' => $data['city'],
-      ]);
+      if ($valid->passes()) {
+        Employee::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'mobile' => $data['mobile'],
+            'street' => $data['street'],
+            'city' => $data['city'],
+        ]);
 
-      Session::flash('success', $data['name'] . " successful created!");
-      return redirect(route('add_employee'));
+        Session::flash('success', $data['name'] . " successful created!");
+        return redirect(route('add_employee'));
+      } else {
+        return redirect(route('add_employee'))->withErrors($valid)->withInput();
+      }
+
     }
 
     public function page(Request $data, $id) {

@@ -160,13 +160,10 @@
             </li>
 
             <li>
-              <a href="#"><i class="fa fa-calendar fa-fw"></i> Timetable<span class="fa arrow"></span></a>
+              <a href="#"><i class="fa fa-calendar fa-fw"></i> Booking<span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <li>
-                  <a href="#">Create Timetable</a>
-                </li>
-                <li>
-                  <a href="#">Manage Timetable</a>
+                  <a href="{{ route('booking_sum') }}">View Booking</a>
                 </li>
               </ul>
             </li>

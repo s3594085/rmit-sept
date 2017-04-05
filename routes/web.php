@@ -31,3 +31,6 @@ Route::post('/createemployee', 'EmployeeController@create')->name('create_employ
 
 Route::post('/employeeavailability', 'EmployeeController@createAvailability')->name('create_availability');
 Route::get('/employeeavailability/delete/{id}', 'EmployeeController@deleteAvailability');
+
+Route::post('/createbooking', 'BookingController@create')->name('create_booking');
+Route::get('/bookingsum', 'BookingController@viewAllBooking')->name('booking_sum');

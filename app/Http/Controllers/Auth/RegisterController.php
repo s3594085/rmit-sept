@@ -47,15 +47,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $messages = ['password.regex' => "Your password must contain atleast 8 character, 1 lower case character, 1 upper case character and 1 digit."];
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:8|regex:/^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/',
-            'mobile' => 'required|regex:/^04[0-9]{8}$/',
-            'street' => 'required|max:255',
-            'city' => 'required|max:255',
-        ],$messages);
+        return User::validator($data);
     }
 
     /**
