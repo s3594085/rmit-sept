@@ -28,6 +28,7 @@ class AddEmployeeTest extends TestCase
               ]);
     }
 
+
     public function testEmployeeCanBeDeleted() {
       $employee = $this->createEmployee();
 
@@ -57,7 +58,37 @@ class AddEmployeeTest extends TestCase
         ]);
     }
 
-    public function testEmployeeInfoCanBeUpdated() {
 
+    public function testInvalidEmp(){
+      $Invalid_emp = [
+        'name' => 'Worker',
+        'email' => 'worker@test.com',
+        'mobile' => '0415',
+        'street' => 'st',
+        'city' => 'city'
+      ];
+      $response = $this->call('POST','create_employee',$Invalid_emp);
+      $this->assertFalse($response->isOk());
     }
+
+   Public function testInvalidMobileRegExp(){
+     $this->assertNotRegExp('^04[0-9]{8}$^','0415');
+   }
+
+   Public function testValidMobileRegExp(){
+     $this->assertRegExp('^04[0-9]{8}$^','0415593116');
+   }
+
+   public function testAddExistedEmailEmp(){
+     $employee = $this->createEmployee();
+     $Invalid_emp = [
+       'name' => 'Jane',
+       'email' => 'worker@test.com',
+       'mobile' => '0415110119',
+       'street' => 'ad st',
+       'city' => 'ad city'
+     ];
+     $response = $this->call('POST','create_employee',$Invalid_emp);
+     $this->assertFalse($response->isOk());
+   }
 }

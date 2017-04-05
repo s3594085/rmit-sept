@@ -40,4 +40,26 @@ class AddEmployeeTimeTest extends TestCase
         'day' => 'M',
       ]);
     }
+
+    public function testEmployeeTimeCanBeDeleted()
+    {
+      $employee = factory(Employee::class) -> create();
+
+      $time = $employee->workingTime()->create([
+          'day' => 'S',
+          'start' => '09:00:00',
+          'end' => '20:00:00',
+      ]);
+      $found_WorkingTime = EmployeeTime::find(1);
+      $this->assertEquals($found_WorkingTime->day, 'S');
+
+      $employee->workingTime()->delete();
+
+
+      $this->assertDatabaseMissing('employee_times', [
+        'id' => '1',
+        'employee_id' => '1',
+        'day' => 'S',
+      ]);
+    }
 }
