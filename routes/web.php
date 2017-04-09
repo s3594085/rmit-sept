@@ -10,27 +10,32 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*
-Route::get('/', function () {
-    return view('welcome');     //welcome.blade.php
-});
-*/
+
+// Login and Register route
 Auth::routes();
 
+// HomeController Route
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
+// DebugController Route
 Route::get('/debug', 'DebugController@index');
 Route::get('/debug/{id}', 'DebugController@swapRole');
 
-Route::get('/manageemployee', 'EmployeeController@manage')->name('manage_employee');
+// EmployeeController Route
+Route::get('/manageemployee', 'EmployeeController@manageEmployee')->name('manage_employee');
 Route::get('/addemployee', 'EmployeeController@index')->name('add_employee');
-Route::get('/employee/delete/{id}', 'EmployeeController@delete');
-Route::get('/employee/{id}', 'EmployeeController@page');
-Route::post('/createemployee', 'EmployeeController@create')->name('create_employee');
+Route::get('/employee/delete/{id}', 'EmployeeController@deleteEmployee');
+Route::get('/employee/{id}', 'EmployeeController@employeePage');
+Route::post('/createemployee', 'EmployeeController@createEmployee')->name('create_employee');
 
+// EmployeeController availability Route
 Route::post('/employeeavailability', 'EmployeeController@createAvailability')->name('create_availability');
 Route::get('/employeeavailability/delete/{id}', 'EmployeeController@deleteAvailability');
 
-Route::post('/createbooking', 'BookingController@create')->name('create_booking');
+// BookingController Route
+Route::post('/createbooking', 'BookingController@createBooking')->name('create_booking');
 Route::get('/bookingsum', 'BookingController@viewAllBooking')->name('booking_sum');
+
+// ViewAvailableBooking
+Route::get('/viewavailablebooking', 'BookingController@ViewAvailableBooking')->name('view_available_booking');
