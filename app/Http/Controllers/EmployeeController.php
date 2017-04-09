@@ -11,18 +11,19 @@ use URL;
 
 class EmployeeController extends Controller
 {
-    //
-
+    //Only allow owner to access EmployeeController
     public function __construct()
     {
         $this->middleware('owner');
     }
 
+    //Add new employee views
     public function index() {
       return view('addnewemp');
     }
 
-    public function manage() {
+    //Manage employee view
+    public function manageEmployee() {
       $employees = DB::select('SELECT * FROM employees');
 
       return view('manageemp', [
@@ -30,7 +31,19 @@ class EmployeeController extends Controller
       ]);
     }
 
-    public function create(Request $data) {
+    //Employee personal view
+    public function employeePage(Request $data, $id) {
+      $employees = Employee::find($id);
+      $availability = DB::select('SELECT * FROM employee_times WHERE employee_id = ?', [$id]);
+
+      return view('employee', [
+        'employees' => $employees,
+        'availability' => $availability,
+      ]);
+    }
+
+    //Create employee function
+    public function createEmployee(Request $data) {
       $valid = Employee::validator($data->all());
 
       if ($valid->passes()) {
@@ -50,24 +63,15 @@ class EmployeeController extends Controller
 
     }
 
-    public function page(Request $data, $id) {
-      $employees = Employee::find($id);
-      $availability = DB::select('SELECT * FROM employee_times WHERE employee_id = ?', [$id]);
-
-      return view('employee', [
-        'employees' => $employees,
-        'availability' => $availability,
-      ]);
-    }
-
-    public function delete(Request $data, $id) {
+    //Delete employee function
+    public function deleteEmployee(Request $data, $id) {
       $deleted = DB::delete('DELETE FROM employees WHERE id = ?', [$id]);
-
 
       Session::flash('deleted', "Employee " . $id . " successful deleted!");
       return redirect(route('manage_employee'));
     }
 
+    //Create employee availability function
     public function createAvailability(Request $data) {
       $employee = Employee::find($data['employee_id']);
 
@@ -81,6 +85,7 @@ class EmployeeController extends Controller
       return redirect(URL::previous());
     }
 
+    //Delete employee availability function
     public function deleteAvailability(Request $data, $id) {
       $deleted = DB::delete('DELETE FROM employee_times WHERE id = ?', [$id]);
 

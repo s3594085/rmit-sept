@@ -95,7 +95,7 @@
                       <tbody>
 
                         @foreach ($bookings as $booking)
-                        @if (strtotime($booking->date) > strtotime(date( 'Ymd', strtotime( 'last sunday' ) ) ))
+                        @if (strtotime($booking->date) >= strtotime(date( 'Ymd', strtotime( 'today' ) ) ))
                         <tr class="gradeA">
                           <td>{{ $booking->user }}</td>
                           <td>{{ $booking->name }}</td>
@@ -383,7 +383,7 @@
                       <tbody>
 
                         @foreach ($bookings as $booking)
-                        @if (strtotime($booking->date) < strtotime(date( 'Ymd', strtotime( 'last sunday' ) ) ))
+                        @if (strtotime($booking->date) < strtotime(date( 'Ymd', strtotime( 'today' ) ) ))
                         <tr class="gradeA">
                           <td>{{ $booking->user }}</td>
                           <td>{{ $booking->name }}</td>

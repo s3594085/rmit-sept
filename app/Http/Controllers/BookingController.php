@@ -3,43 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Booking;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
-    //
+    //Only authenticated user can access Booking controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        //only owner can access viewAllBooking function
         $this->middleware('owner', ['only' => ['viewAllBooking']]);
     }
 
-    public function create(Request $data) {
-      $this->validate($data, [
-          'date' => 'required',
-          'start' => 'required',
-          'end' => 'required',
-          'employee_id' => 'required',
-      ]);
+    //User create booking function
+    public function createBooking(Request $data) {
+      $valid = Booking::validator($data->all());
 
-      $user = User::find(Auth::user()->id);
+      if ($valid->passes()) {
+        $user = User::find(Auth::user()->id);
 
-      $user->booking()->create([
-        'date' => $data['date'],
-        'start' => $data['start'],
-        'end' => $data['end'],
-        'employee_id' => $data['employee_id'],
-      ]);
+        $user->booking()->create([
+          'date' => $data['date'],
+          'start' => $data['start'],
+          'end' => $data['end'],
+          'employee_id' => $data['employee_id'],
+        ]);
 
-      //Session::flash('success', "Time : " . $data['start'] . " to " . $data['end'] . " successful added!");
-      //return redirect(URL::previous());
-      return redirect('/debug');
+        Session::flash('success', "Booking successful added!");
+        return redirect(URL::previous());
+      } else {
+        return redirect(URL::previous())->withErrors($valid)->withInput();
+      }
     }
 
+    //Owner view all booking function (Summary)
     public function viewAllBooking() {
-      //$bookings = DB::select('SELECT * FROM bookings');
       $bookings = DB::table('bookings')
               ->join('employees', 'bookings.employee_id', '=', 'employees.id')
               ->join('users', 'bookings.user_id', '=', 'users.id')
@@ -48,6 +50,16 @@ class BookingController extends Controller
 
       return view('bookingsum', [
         'bookings' => $bookings,
+      ]);
+    }
+
+    public function ViewAvailableBooking() {
+      $employees = DB::select('SELECT * FROM employees');
+      $availability = DB::select('SELECT * FROM employee_times');
+
+      return view('viewAvailableTime', [
+        'employees' => $employees,
+        'availability' => $availability,
       ]);
     }
 }
