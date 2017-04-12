@@ -50,7 +50,7 @@
                       <td>{{ $booking->end }}</td>
                       <td>
                         <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                        <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                        <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                       </td>
                     </tr>
                     @endforeach
@@ -104,7 +104,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -136,7 +136,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -169,7 +169,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -202,7 +202,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -235,7 +235,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -268,7 +268,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -301,7 +301,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -334,7 +334,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -392,7 +392,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -424,7 +424,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -457,7 +457,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -490,7 +490,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -523,7 +523,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -556,7 +556,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -589,7 +589,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif
@@ -622,7 +622,7 @@
                           <td>{{ $booking->end }}</td>
                           <td>
                             <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                            <a href="#" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                            <a href="{{ url('/booking/delete/' . $booking->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
                           </td>
                         </tr>
                         @endif

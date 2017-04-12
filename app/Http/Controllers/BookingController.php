@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Booking;
 use Auth;
+use URL;
+use Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -33,11 +35,19 @@ class BookingController extends Controller
           'employee_id' => $data['employee_id'],
         ]);
 
-        Session::flash('success', "Booking successful added!");
+        //Session::flash('success', "Booking successful added!");
         return redirect(URL::previous());
       } else {
         return redirect(URL::previous())->withErrors($valid)->withInput();
       }
+    }
+
+    //Delete booking function
+    public function deleteBooking(Request $data, $id) {
+      $deleted = DB::delete('DELETE FROM bookings WHERE id = ?', [$id]);
+
+      Session::flash('deleted', "Booking " . $id . " successful deleted!");
+      return redirect(route('booking_sum'));
     }
 
     //Owner view all booking function (Summary)
