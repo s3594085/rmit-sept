@@ -27,6 +27,11 @@
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             {{ Session::get('deleted') }}
           </div>
+          @elseif (Session::has('fail'))
+          <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{ Session::get('fail') }}
+          </div>
           @endif
 
           <form id="" role="form" method="POST" action="{{ route('create_availability') }}">
@@ -44,17 +49,24 @@
                 <option value="Sunday">Sunday</option>
               </select>
               <br>
-              <strong>Start Time : </strong>
-              <div class='input-group date datetimepicker3'>
-                <input type='text' class="form-control" name="start" required/>
-                <span class="input-group-addon">
-                  <span class="glyphicon glyphicon-time"></span>
+              <div class="form-group{{ $errors->has('start') ? ' has-error' : '' }}" style="text-align:left;">
+                <strong>Start Time : </strong>
+                <div class='input-group date datetimepicker3'>
+                  <input type='text' class="form-control" name="start" value="{{ old('start') }}" required/>
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time"></span>
+                  </span>
+                </div>
+                @if ($errors->has('start'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('start') }}</strong>
                 </span>
+                @endif
               </div>
               <br>
               <strong>End Time : </strong>
               <div class='input-group date datetimepicker3'>
-                <input type='text' class="form-control" name="end" required/>
+                <input type='text' class="form-control" name="end" value="{{ old('end') }}" required/>
                 <span class="input-group-addon">
                   <span class="glyphicon glyphicon-time"></span>
                 </span>
@@ -144,17 +156,17 @@
                 </thead>
                 <tbody>
                   @foreach ($availability as $available)
-                    @if ($available->day == "Monday")
-                    <tr class="gradeA">
-                      <td>{{ $available->day }}</td>
-                      <td>{{ $available->start }}</td>
-                      <td>{{ $available->end }}</td>
-                      <td>
-                        <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
-                        <a href="{{ url('/employeeavailability/delete/' . $available->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
-                      </td>
-                    </tr>
-                    @endif
+                  @if ($available->day == "Monday")
+                  <tr class="gradeA">
+                    <td>{{ $available->day }}</td>
+                    <td>{{ $available->start }}</td>
+                    <td>{{ $available->end }}</td>
+                    <td>
+                      <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>
+                      <a href="{{ url('/employeeavailability/delete/' . $available->id) }}" title="Delete" class="btn btn-danger btn-circle"><i class="fa fa-times"></i></a>
+                    </td>
+                  </tr>
+                  @endif
                   @endforeach
                 </tbody>
               </table>

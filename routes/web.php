@@ -36,6 +36,7 @@ Route::get('/employeeavailability/delete/{id}', 'EmployeeController@deleteAvaila
 // BookingController Route
 Route::post('/createbooking', 'BookingController@createBooking')->name('create_booking');
 Route::get('/bookingsum', 'BookingController@viewAllBooking')->name('booking_sum');
+Route::get('/booking/delete/{id}', 'BookingController@deleteBooking')->name('delete_booking');
 
 // ViewAvailableBooking
 Route::get('/viewavailablebooking', 'BookingController@ViewAvailableBooking')->name('view_available_booking');
