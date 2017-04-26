@@ -9,6 +9,7 @@ use URL;
 use Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Service;
 
 class BookingController extends Controller
 {
@@ -63,13 +64,18 @@ class BookingController extends Controller
       ]);
     }
 
-    public function ViewAvailableBooking() {
+    public function ViewAvailableBooking(Request $data, $id) {
       $employees = DB::select('SELECT * FROM employees');
       $availability = DB::select('SELECT * FROM employee_times');
+      $services = DB::select('SELECT * FROM services');
+      $single_service = Service::find($id);
 
       return view('viewAvailableTime', [
         'employees' => $employees,
         'availability' => $availability,
+        'services' => $services,
+        'id' => $id,
+        'single_service' => $single_service,
       ]);
     }
 }
