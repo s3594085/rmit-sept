@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">
-        View Booking
+        View Booking Availability
       </h1>
     </div>
   </div>
@@ -15,6 +15,18 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           Booking Availability
+        </div>
+        <div class="panel-body">
+          <h4>Services</h4>
+          <ul class="nav nav-pills">
+            @foreach ($services as $service)
+              @if ($id == $service->id)
+              <li class="active"><a href="{{ route('view_available_booking') }}/{{ $service->id }}">{{ $service->name }}</a></li>
+              @else
+              <li class=""><a href="{{ route('view_available_booking') }}/{{ $service->id }}">{{ $service->name }}</a></li>
+              @endif
+            @endforeach
+          </ul>
         </div>
         <div class="panel-body">
           @foreach ($employees as $employee)
@@ -58,11 +70,17 @@
                         <tbody>
                           @foreach ($availability as $available)
                           @if ($available->day == "Monday" && $available->employee_id == $employee->id)
-                          <tr class="gradeA">
-                            <td>{{ $available->day }}</td>
-                            <td>{{ $available->start }}</td>
-                            <td>{{ $available->end }}</td>
-                          </tr>
+                            <?php
+                              $dd = strtotime($available->end) - strtotime($available->start);
+                              $times = floor($dd / $single_service->duration);
+                            ?>
+                            @for ($i=0;$i<$times;$i++)
+                            <tr class="gradeA">
+                              <td>{{ $available->day }}</td>
+                              <td>{{ date('H:i', strtotime($available->start) + $i * $single_service->duration) }}</td>
+                              <td>{{ date('H:i', strtotime($available->start) + (($i + 1) * $single_service->duration)) }}</td>
+                            </tr>
+                            @endfor
                           @endif
                           @endforeach
                         </tbody>

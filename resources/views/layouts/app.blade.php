@@ -150,7 +150,7 @@
               <a href="#"><i class="fa fa-calendar fa-fw"></i> Timetable<span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <li>
-                  <a href="{{ route('view_available_booking') }}">View Booking</a>
+                  <a href="{{ route('view_available_booking') }}/1">View Availability</a>
                 </li>
               </ul>
             </li>
@@ -175,13 +175,27 @@
                 </li>
               </ul>
             </li>
+
+            <li>
+              <a href="#"><i class="fa fa-tasks fa-fw"></i> Service<span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li>
+                  <a href="{{ route('add_services') }}">Add Service</a>
+                </li>
+                <li>
+                  <a href="{{ route('view_services') }}">View Service</a>
+                </li>
+              </ul>
+            </li>
+
             @endif
 
             <!-- Debug -->
+            <!--
             <li>
               <a href="{{ url('/debug') }}"><i class="fa fa-gears fa-fw"></i> Debug</a>
             </li>
-
+          -->
           </ul>
         </div>
         <!-- /.sidebar-collapse -->
