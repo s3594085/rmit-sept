@@ -93,7 +93,9 @@
             <div class="form-group{{ $errors->has('employee_id') ? ' has-error' : '' }}" style="text-align:left;">
               <h5>Employee</h5>
               <select name="employee_id" required autofocus class="form-control">
-                <option value="1">John Wick</option>
+                @foreach ($employees as $employee)
+                <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                @endforeach
               </select>
               @if ($errors->has('employee_id'))
               <span class="help-block">

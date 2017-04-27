@@ -3,43 +3,56 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Booking;
 use Auth;
+use URL;
+use Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Service;
 
 class BookingController extends Controller
 {
-    //
+    //Only authenticated user can access Booking controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        //only owner can access viewAllBooking function
         $this->middleware('owner', ['only' => ['viewAllBooking']]);
     }
 
-    public function create(Request $data) {
-      $this->validate($data, [
-          'date' => 'required',
-          'start' => 'required',
-          'end' => 'required',
-          'employee_id' => 'required',
-      ]);
+    //User create booking function
+    public function createBooking(Request $data) {
+      $valid = Booking::validator($data->all());
 
-      $user = User::find(Auth::user()->id);
+      if ($valid->passes()) {
+        $user = User::find(Auth::user()->id);
 
-      $user->booking()->create([
-        'date' => $data['date'],
-        'start' => $data['start'],
-        'end' => $data['end'],
-        'employee_id' => $data['employee_id'],
-      ]);
+        $user->booking()->create([
+          'date' => $data['date'],
+          'start' => $data['start'],
+          'end' => $data['end'],
+          'employee_id' => $data['employee_id'],
+        ]);
 
-      //Session::flash('success', "Time : " . $data['start'] . " to " . $data['end'] . " successful added!");
-      //return redirect(URL::previous());
-      return redirect('/debug');
+        //Session::flash('success', "Booking successful added!");
+        return redirect(URL::previous());
+      } else {
+        return redirect(URL::previous())->withErrors($valid)->withInput();
+      }
     }
 
+    //Delete booking function
+    public function deleteBooking(Request $data, $id) {
+      $deleted = DB::delete('DELETE FROM bookings WHERE id = ?', [$id]);
+
+      Session::flash('deleted', "Booking " . $id . " successful deleted!");
+      return redirect(route('booking_sum'));
+    }
+
+    //Owner view all booking function (Summary)
     public function viewAllBooking() {
-      //$bookings = DB::select('SELECT * FROM bookings');
       $bookings = DB::table('bookings')
               ->join('employees', 'bookings.employee_id', '=', 'employees.id')
               ->join('users', 'bookings.user_id', '=', 'users.id')
@@ -48,6 +61,21 @@ class BookingController extends Controller
 
       return view('bookingsum', [
         'bookings' => $bookings,
+      ]);
+    }
+
+    public function ViewAvailableBooking(Request $data, $id) {
+      $employees = DB::select('SELECT * FROM employees');
+      $availability = DB::select('SELECT * FROM employee_times');
+      $services = DB::select('SELECT * FROM services');
+      $single_service = Service::find($id);
+
+      return view('viewAvailableTime', [
+        'employees' => $employees,
+        'availability' => $availability,
+        'services' => $services,
+        'id' => $id,
+        'single_service' => $single_service,
       ]);
     }
 }
