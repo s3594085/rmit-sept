@@ -58,7 +58,8 @@
             <script type="text/javascript">
             $(function () {
               $('.datetimepicker3').datetimepicker({
-                format: 'HH:mm'
+                format: 'HH:mm',
+                stepping: 30
               });
             });
             </script>
