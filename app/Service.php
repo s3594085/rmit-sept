@@ -14,7 +14,7 @@ class Service extends Model
   public static function validator(array $data) {
     return Validator::make($data, [
         'name' => 'required|max:255',
-        'duration' => 'required',
+        'duration' => 'required|integer',
     ]);
   }
 }
