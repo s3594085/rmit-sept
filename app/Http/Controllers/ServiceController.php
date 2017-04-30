@@ -9,16 +9,18 @@ use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
+  //Only allow owner to access ServiceController
   public function __construct()
   {
       $this->middleware('owner');
   }
 
-  //Add new employee views
+  //Add new services views
   public function addServices() {
     return view('addservice');
   }
 
+  //Create Service function
   public function createServices(Request $data) {
     $valid = Service::validator($data->all());
 
@@ -39,6 +41,7 @@ class ServiceController extends Controller
     }
   }
 
+  //List all services view
   public function viewServices() {
     $services = DB::select('SELECT * FROM services');
 

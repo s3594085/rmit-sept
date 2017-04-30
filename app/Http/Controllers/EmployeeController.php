@@ -78,10 +78,12 @@ class EmployeeController extends Controller
       foreach ($existingTimes as $key => $existingTime) {
         if ((strtotime($data['start']) > strtotime($existingTime->start) && strtotime($data['start']) < strtotime($existingTime->end))
             || (strtotime($data['end']) > strtotime($existingTime->start) && strtotime($data['end']) < strtotime($existingTime->end))
-            && $existingTime->day == $data['day']
             || strtotime($data['start']) == strtotime($existingTime->start) && strtotime($data['end']) == strtotime($existingTime->end)) {
-          $availabilityExist = FALSE;
-          break;
+
+          if ($existingTime->day == $data['day']) {
+            $availabilityExist = FALSE;
+            break;
+          }
         }
       }
 

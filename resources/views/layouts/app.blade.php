@@ -152,6 +152,9 @@
                 <li>
                   <a href="{{ route('view_available_booking') }}/1">View Availability</a>
                 </li>
+                <li>
+                  <a href="{{ route('view_my_booking') }}">My Booking</a>
+                </li>
               </ul>
             </li>
             @if (Auth::user()->owner)
@@ -172,6 +175,9 @@
               <ul class="nav nav-second-level">
                 <li>
                   <a href="{{ route('booking_sum') }}">View Booking</a>
+                </li>
+                <li>
+                  <a href="{{ route('booking_cus') }}/1">Customer Booking</a>
                 </li>
               </ul>
             </li>
