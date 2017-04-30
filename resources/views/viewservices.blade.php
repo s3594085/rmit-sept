@@ -28,7 +28,7 @@
               <tr>
                 <th>ID #</th>
                 <th>Name</th>
-                <th>Duration</th>
+                <th>Duration (Minutes)</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -37,7 +37,7 @@
               <tr class="gradeA">
                 <td>{{ $service->id }}</td>
                 <td>{{ $service->name }}</td>
-                <td>{{ $service->duration }}</td>
+                <td>{{ $service->duration / 60 }}</td>
                 <td>
                   <a href="#" title="Avaibility" class="btn btn-success btn-circle"><i class="fa fa-clock-o"></i></a>
                   <a href="#" title="Edit" class="btn btn-primary btn-circle"><i class="fa fa-edit"></i></a>

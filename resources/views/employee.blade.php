@@ -72,7 +72,7 @@
                 </span>
               </div>
             </div>
-            <button type="submit" title="Add" class="btn btn-warning btn-circle btn-lg center-block"><i class="fa fa-check"></i></button>
+            <button type="submit" name="submit" title="Add" class="btn btn-warning btn-circle btn-lg center-block"><i class="fa fa-check"></i></button>
           </form>
           <script type="text/javascript">
           $(function () {

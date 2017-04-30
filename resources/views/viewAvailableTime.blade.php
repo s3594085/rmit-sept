@@ -139,6 +139,7 @@
                               <?php $j++; ?>
                             @endforeach
                             <?php
+                              unset($all_day);
                               unset($all_start);
                               unset($all_end);
                               ?>
@@ -224,6 +225,7 @@
                               <?php $j++; ?>
                             @endforeach
                             <?php
+                              unset($all_day);
                               unset($all_start);
                               unset($all_end);
                               ?>
@@ -307,6 +309,7 @@
                               <?php $j++; ?>
                             @endforeach
                             <?php
+                              unset($all_day);
                               unset($all_start);
                               unset($all_end);
                               ?>
@@ -390,6 +393,7 @@
                               <?php $j++; ?>
                             @endforeach
                             <?php
+                              unset($all_day);
                               unset($all_start);
                               unset($all_end);
                               ?>
@@ -473,6 +477,7 @@
                               <?php $j++; ?>
                             @endforeach
                             <?php
+                              unset($all_day);
                               unset($all_start);
                               unset($all_end);
                               ?>
@@ -556,6 +561,7 @@
                               <?php $j++; ?>
                             @endforeach
                             <?php
+                              unset($all_day);
                               unset($all_start);
                               unset($all_end);
                               ?>
@@ -639,6 +645,7 @@
                               <?php $j++; ?>
                             @endforeach
                             <?php
+                              unset($all_day);
                               unset($all_start);
                               unset($all_end);
                               ?>
