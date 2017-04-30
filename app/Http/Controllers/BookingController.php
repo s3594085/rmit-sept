@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Booking;
 use Auth;
+use URL;
+use Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Service;
 
 class BookingController extends Controller
 {
@@ -33,11 +36,19 @@ class BookingController extends Controller
           'employee_id' => $data['employee_id'],
         ]);
 
-        Session::flash('success', "Booking successful added!");
+        //Session::flash('success', "Booking successful added!");
         return redirect(URL::previous());
       } else {
         return redirect(URL::previous())->withErrors($valid)->withInput();
       }
+    }
+
+    //Delete booking function
+    public function deleteBooking(Request $data, $id) {
+      $deleted = DB::delete('DELETE FROM bookings WHERE id = ?', [$id]);
+
+      Session::flash('deleted', "Booking " . $id . " successful deleted!");
+      return redirect(route('booking_sum'));
     }
 
     //Owner view all booking function (Summary)
@@ -53,13 +64,18 @@ class BookingController extends Controller
       ]);
     }
 
-    public function ViewAvailableBooking() {
+    public function ViewAvailableBooking(Request $data, $id) {
       $employees = DB::select('SELECT * FROM employees');
       $availability = DB::select('SELECT * FROM employee_times');
+      $services = DB::select('SELECT * FROM services');
+      $single_service = Service::find($id);
 
       return view('viewAvailableTime', [
         'employees' => $employees,
         'availability' => $availability,
+        'services' => $services,
+        'id' => $id,
+        'single_service' => $single_service,
       ]);
     }
 }

@@ -73,15 +73,32 @@ class EmployeeController extends Controller
 
     //Create employee availability function
     public function createAvailability(Request $data) {
-      $employee = Employee::find($data['employee_id']);
+      $availabilityExist = TRUE;
+      $existingTimes = DB::select('SELECT * FROM employee_times WHERE employee_id = ?', [$data['employee_id']]);
+      foreach ($existingTimes as $key => $existingTime) {
+        if ((strtotime($data['start']) > strtotime($existingTime->start) && strtotime($data['start']) < strtotime($existingTime->end))
+            || (strtotime($data['end']) > strtotime($existingTime->start) && strtotime($data['end']) < strtotime($existingTime->end))
+            && $existingTime->day == $data['day']
+            || strtotime($data['start']) == strtotime($existingTime->start) && strtotime($data['end']) == strtotime($existingTime->end)) {
+          $availabilityExist = FALSE;
+          break;
+        }
+      }
 
-      $employee->workingTime()->create([
-        'day' => $data['day'],
-        'start' => $data['start'],
-        'end' => $data['end'],
-      ]);
+      if ($availabilityExist) {
+        $employee = Employee::find($data['employee_id']);
 
-      Session::flash('success', "Time : " . $data['start'] . " to " . $data['end'] . " successful added!");
+        $employee->workingTime()->create([
+          'day' => $data['day'],
+          'start' => $data['start'],
+          'end' => $data['end'],
+        ]);
+
+        Session::flash('success', "Time : " . $data['start'] . " to " . $data['end'] . " successful added!");
+      } else {
+        Session::flash('fail', "Time : " . $data['start'] . " to " . $data['end'] . " range already exist!");
+      }
+
       return redirect(URL::previous());
     }
 
