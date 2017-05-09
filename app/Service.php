@@ -12,9 +12,10 @@ class Service extends Model
   ];
 
   public static function validator(array $data) {
+    $messages = ['name.regex' => "The name may only contain letters and spaces."];
     return Validator::make($data, [
-        'name' => 'required|max:255',
+        'name' => 'required|max:255|regex:/^[a-zA-Z ]*$/',
         'duration' => 'required',
-    ]);
+    ], $messages);
   }
 }
