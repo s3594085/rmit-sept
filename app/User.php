@@ -29,9 +29,12 @@ class User extends Authenticatable
     ];
 
     public static function validator(array $data) {
-      $messages = ['password.regex' => "Your password must contain atleast 8 character, 1 lower case character, 1 upper case character and 1 digit."];
+      $messages = [
+        'password.regex' => "Your password must contain atleast 8 character, 1 lower case character, 1 upper case character and 1 digit.",
+        'name.regex' => "The name may only contain letters and spaces.",
+      ];
       return Validator::make($data, [
-          'name' => 'required|max:255',
+          'name' => 'required|max:255|regex:/^[a-zA-Z ]*$/',
           'email' => 'required|email|max:255|unique:users',
           'password' => 'required|confirmed|min:8|regex:/^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/',
           'mobile' => 'required|regex:/^04[0-9]{8}$/',

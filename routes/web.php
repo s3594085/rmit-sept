@@ -35,12 +35,18 @@ Route::get('/employeeavailability/delete/{id}', 'EmployeeController@deleteAvaila
 
 // BookingController Route
 Route::post('/createbooking', 'BookingController@createBooking')->name('create_booking');
+Route::post('/createcustomerbooking', 'BookingController@createCustomerBooking')->name('create_customer_booking');
 Route::get('/bookingsum', 'BookingController@viewAllBooking')->name('booking_sum');
 Route::get('/booking/delete/{id}', 'BookingController@deleteBooking')->name('delete_booking');
+Route::get('/mybooking', 'BookingController@viewMyBooking')->name('view_my_booking');
 
 // ViewAvailableBooking
 Route::get('/viewavailablebooking/{id}', 'BookingController@ViewAvailableBooking');
 Route::get('/viewavailablebooking', 'BookingController@ViewAvailableBooking')->name('view_available_booking');
+
+// Booking Customer
+Route::get('/customerbooking/{id}', 'BookingController@CustomerBooking');
+Route::get('/customerbooking', 'BookingController@CustomerBooking')->name('booking_cus');
 
 // ServiceController Route
 Route::get('/addServices', 'ServiceController@addServices')->name('add_services');

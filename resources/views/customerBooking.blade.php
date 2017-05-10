@@ -21,9 +21,9 @@
           <ul class="nav nav-pills">
             @foreach ($services as $service)
             @if ($id == $service->id)
-            <li class="active"><a href="{{ route('view_available_booking') }}/{{ $service->id }}">{{ $service->name }}</a></li>
+            <li class="active"><a href="{{ route('booking_cus') }}/{{ $service->id }}">{{ $service->name }}</a></li>
             @else
-            <li class=""><a href="{{ route('view_available_booking') }}/{{ $service->id }}">{{ $service->name }}</a></li>
+            <li class=""><a href="{{ route('booking_cus') }}/{{ $service->id }}">{{ $service->name }}</a></li>
             @endif
             @endforeach
           </ul>
@@ -64,9 +64,15 @@
                   <!-- Tab panes -->
                   <div class="tab-content">
                     <div class="tab-pane fade active in" id="monday-pills{{ $employee->id }}">
-                      <h4>Monday</h4>
-                      <form role="form" method="POST" action="{{ route('create_booking') }}">
+                      <form role="form" method="POST" action="{{ route('create_customer_booking') }}">
                         {{ csrf_field() }}
+                        <h4>Customer</h4>
+                        <select class="form-control" name="user[]">
+                          @foreach ($users as $user)
+                          <option value="{{ $user->id }}">{{ $user->name }}</option>
+                          @endforeach
+                        </select>
+                        <h4>Monday</h4>
                         <table class="table table-striped table-bordered table-hover">
                           <thead>
                             <tr>
@@ -114,7 +120,7 @@
                                 || strtotime($value) <= strtotime($booking->start) && strtotime($value) + $single_service->duration >= strtotime($booking->end))
                                   @if ($booking->date == date( 'Y-m-d', strtotime( 'this monday' )) && $booking->employee_id == $employee->id)
                                   <?php
-                                    //echo $all_start[$key] . " - " . $all_end[$key] . " booked <br>";
+                                    // echo $all_start[$key] . " - " . $all_end[$key] . " booked <br>";
                                     unset($all_start[$key]);
                                     unset($all_end[$key]);
                                    ?>
@@ -150,9 +156,15 @@
                       </form>
                     </div>
                     <div class="tab-pane fade" id="tuesday-pills{{ $employee->id }}">
-                      <h4>Tuesday</h4>
-                      <form role="form" method="POST" action="{{ route('create_booking') }}">
+                      <form role="form" method="POST" action="{{ route('create_customer_booking') }}">
                         {{ csrf_field() }}
+                        <h4>Customer</h4>
+                        <select class="form-control" name="user[]">
+                          @foreach ($users as $user)
+                          <option value="{{ $user->id }}">{{ $user->name }}</option>
+                          @endforeach
+                        </select>
+                        <h4>Tuesday</h4>
                         <table class="table table-striped table-bordered table-hover">
                           <thead>
                             <tr>
@@ -236,9 +248,15 @@
                       </form>
                     </div>
                     <div class="tab-pane fade" id="wednesday-pills{{ $employee->id }}">
-                      <h4>Wednesday</h4>
-                      <form role="form" method="POST" action="{{ route('create_booking') }}">
+                      <form role="form" method="POST" action="{{ route('create_customer_booking') }}">
                         {{ csrf_field() }}
+                        <h4>Customer</h4>
+                        <select class="form-control" name="user[]">
+                          @foreach ($users as $user)
+                          <option value="{{ $user->id }}">{{ $user->name }}</option>
+                          @endforeach
+                        </select>
+                        <h4>Wednesday</h4>
                         <table class="table table-striped table-bordered table-hover">
                           <thead>
                             <tr>
@@ -320,9 +338,15 @@
                       </form>
                     </div>
                     <div class="tab-pane fade" id="thursday-pills{{ $employee->id }}">
-                      <h4>Thursday</h4>
-                      <form role="form" method="POST" action="{{ route('create_booking') }}">
+                      <form role="form" method="POST" action="{{ route('create_customer_booking') }}">
                         {{ csrf_field() }}
+                        <h4>Customer</h4>
+                        <select class="form-control" name="user[]">
+                          @foreach ($users as $user)
+                          <option value="{{ $user->id }}">{{ $user->name }}</option>
+                          @endforeach
+                        </select>
+                        <h4>Thursday</h4>
                         <table class="table table-striped table-bordered table-hover">
                           <thead>
                             <tr>
@@ -404,9 +428,15 @@
                       </form>
                     </div>
                     <div class="tab-pane fade" id="friday-pills{{ $employee->id }}">
-                      <h4>Friday</h4>
-                      <form role="form" method="POST" action="{{ route('create_booking') }}">
+                      <form role="form" method="POST" action="{{ route('create_customer_booking') }}">
                         {{ csrf_field() }}
+                        <h4>Customer</h4>
+                        <select class="form-control" name="user[]">
+                          @foreach ($users as $user)
+                          <option value="{{ $user->id }}">{{ $user->name }}</option>
+                          @endforeach
+                        </select>
+                        <h4>Friday</h4>
                         <table class="table table-striped table-bordered table-hover">
                           <thead>
                             <tr>
@@ -488,9 +518,15 @@
                       </form>
                     </div>
                     <div class="tab-pane fade" id="saturday-pills{{ $employee->id }}">
-                      <h4>Saturday</h4>
-                      <form role="form" method="POST" action="{{ route('create_booking') }}">
+                      <form role="form" method="POST" action="{{ route('create_customer_booking') }}">
                         {{ csrf_field() }}
+                        <h4>Customer</h4>
+                        <select class="form-control" name="user[]">
+                          @foreach ($users as $user)
+                          <option value="{{ $user->id }}">{{ $user->name }}</option>
+                          @endforeach
+                        </select>
+                        <h4>Saturday</h4>
                         <table class="table table-striped table-bordered table-hover">
                           <thead>
                             <tr>
@@ -572,9 +608,15 @@
                       </form>
                     </div>
                     <div class="tab-pane fade" id="sunday-pills{{ $employee->id }}">
-                      <h4>Sunday</h4>
-                      <form role="form" method="POST" action="{{ route('create_booking') }}">
+                      <form role="form" method="POST" action="{{ route('create_customer_booking') }}">
                         {{ csrf_field() }}
+                        <h4>Customer</h4>
+                        <select class="form-control" name="user[]">
+                          @foreach ($users as $user)
+                          <option value="{{ $user->id }}">{{ $user->name }}</option>
+                          @endforeach
+                        </select>
+                        <h4>Sunday</h4>
                         <table class="table table-striped table-bordered table-hover">
                           <thead>
                             <tr>

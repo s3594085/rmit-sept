@@ -133,7 +133,7 @@
             -->
               <div id="decide">
                 <!--<button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-times"></i></button>-->
-                <span><button type="submit" class="btn btn-warning btn-circle btn-lg center-block"><i class="fa fa-check"></i></button></span>
+                <span><button type="submit" name="submit" class="btn btn-warning btn-circle btn-lg center-block"><i class="fa fa-check"></i></button></span>
               </div>
             </form>
           </div>

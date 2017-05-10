@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
           $u->issues()->save(factory(App\Issues::class)->make());
         });
         */
-        
+
         DB::table('users')->insert([
             'name' => 'Seeder',
             'email' => 'seed@test.com',
@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             'mobile' => '0123456789',
             'street' => 'seed st',
             'city' => 'seed city',
+            'owner' => 1,
         ]);
     }
 }

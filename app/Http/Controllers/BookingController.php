@@ -19,7 +19,11 @@ class BookingController extends Controller
         $this->middleware('auth');
 
         //only owner can access viewAllBooking function
-        $this->middleware('owner', ['only' => ['viewAllBooking']]);
+        $this->middleware('owner', [
+          'only' => ['viewAllBooking'],
+          'only' => ['CustomerBooking'],
+
+        ]);
     }
 
     //User create booking function
@@ -30,13 +34,36 @@ class BookingController extends Controller
         $user = User::find(Auth::user()->id);
 
         $user->booking()->create([
-          'date' => $data['date'],
-          'start' => $data['start'],
-          'end' => $data['end'],
-          'employee_id' => $data['employee_id'],
+          'date' => $data['date'][$data['book']],
+          'start' => $data['start'][$data['book']],
+          'end' => $data['end'][$data['book']],
+          'employee_id' => $data['employee_id'][$data['book']],
+          'service_id' => $data['service_id'][$data['book']],
         ]);
 
-        //Session::flash('success', "Booking successful added!");
+        Session::flash('success', "Booking successful added!");
+        return redirect(URL::previous());
+      } else {
+        return redirect(URL::previous())->withErrors($valid)->withInput();
+      }
+    }
+
+    //Onwer create user booking function
+    public function createCustomerBooking(Request $data) {
+      $valid = Booking::validator($data->all());
+
+      if ($valid->passes()) {
+        $user = User::find($data['user'][$data['book']]);
+
+        $user->booking()->create([
+          'date' => $data['date'][$data['book']],
+          'start' => $data['start'][$data['book']],
+          'end' => $data['end'][$data['book']],
+          'employee_id' => $data['employee_id'][$data['book']],
+          'service_id' => $data['service_id'][$data['book']],
+        ]);
+
+        Session::flash('success', "Booking successful added!");
         return redirect(URL::previous());
       } else {
         return redirect(URL::previous())->withErrors($valid)->withInput();
@@ -56,7 +83,8 @@ class BookingController extends Controller
       $bookings = DB::table('bookings')
               ->join('employees', 'bookings.employee_id', '=', 'employees.id')
               ->join('users', 'bookings.user_id', '=', 'users.id')
-              ->select('bookings.*', 'employees.name', 'users.name AS user')
+              ->join('services', 'bookings.service_id', '=', 'services.id')
+              ->select('bookings.*', 'employees.name', 'users.name AS user', 'services.name AS service')
               ->get();
 
       return view('bookingsum', [
@@ -64,10 +92,27 @@ class BookingController extends Controller
       ]);
     }
 
+    //Customer view own bookings
+    public function viewMyBooking() {
+      $bookings = DB::table('bookings')
+              ->join('employees', 'bookings.employee_id', '=', 'employees.id')
+              ->join('users', 'bookings.user_id', '=', 'users.id')
+              ->join('services', 'bookings.service_id', '=', 'services.id')
+              ->select('bookings.*', 'employees.name', 'users.name AS user', 'services.name AS service')
+              ->where('bookings.user_id', '=', Auth::user()->id)
+              ->get();
+
+      return view('mybooking', [
+        'bookings' => $bookings,
+      ]);
+    }
+
+    //Customer view all available booking
     public function ViewAvailableBooking(Request $data, $id) {
       $employees = DB::select('SELECT * FROM employees');
       $availability = DB::select('SELECT * FROM employee_times');
       $services = DB::select('SELECT * FROM services');
+      $bookings = DB::select('SELECT * FROM bookings');
       $single_service = Service::find($id);
 
       return view('viewAvailableTime', [
@@ -76,6 +121,27 @@ class BookingController extends Controller
         'services' => $services,
         'id' => $id,
         'single_service' => $single_service,
+        'bookings' => $bookings,
+      ]);
+    }
+
+    //Owner view all available booking for customer
+    public function CustomerBooking(Request $data, $id) {
+      $employees = DB::select('SELECT * FROM employees');
+      $availability = DB::select('SELECT * FROM employee_times');
+      $services = DB::select('SELECT * FROM services');
+      $bookings = DB::select('SELECT * FROM bookings');
+      $users = DB::select('SELECT * FROM users');
+      $single_service = Service::find($id);
+
+      return view('customerBooking', [
+        'employees' => $employees,
+        'availability' => $availability,
+        'services' => $services,
+        'id' => $id,
+        'single_service' => $single_service,
+        'bookings' => $bookings,
+        'users' => $users,
       ]);
     }
 }

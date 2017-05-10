@@ -4,10 +4,9 @@ namespace Tests\Browser;
 
 use App\User;
 use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class loginTest extends DuskTestCase
+class LoginTest extends DuskTestCase
 {
     /**
      * A Dusk test example.
@@ -15,51 +14,50 @@ class loginTest extends DuskTestCase
      * @return void
      */
 
-     use DatabaseMigrations;
+    use DatabaseMigrations;
 
+    public function createUser() {
 
-     public function createUser() {
+      $user = factory(User::class)->create(
+        ['email' => 'hello@test.com',
+        'mobile' => '041234567',
+        'street' => 'test st',
+        'city' => 'test city',
+        'password' => bcrypt('testpassword'),]);
 
-     $user = factory(User::class)->create(
-       ['email' => 'hello@test.com',
-       'mobile' => '041234567',
-       'street' => 'test st',
-       'city' => 'test city',
-       'password' => bcrypt('testpassword'),]);
+      return $user;
+    }
 
-     return $user;
-   }
+    // visit login path test
+    public function testVisitLogin()
+    {
+        $this->browse(function ($browser) {
+            $browser->visit('/login')
+                    ->assertSee('Login')
+                    ->assertPathIs('/login');
+        });
+    }
 
+    public function testLogin(){
+      $user = $this->createUser();
+      $this->browse(function ($browser){
+          $browser->visit('/login')
+                  ->type('email','hello@test.com')
+                  ->type('password','testpassword')
+                  ->press('login')
+                  ->assertPathIs('/home')
+                  ->assertSee('Dashboard');
+      });
+    }
 
-   public function testLogin(){
-     $user = $this->createUser();
-     $this->browse(function ($browser){
-         $browser->visit('/login')
-                 ->type('email','hello@test.com')
-                 ->type('password','testpassword')
-                 ->press('login')
-                 ->assertPathIs('/home')
-                 ->assertSee('Dashboard');
-     });
-   }
+    public function testInvalidUserLogin(){
 
-   public function testVisitLogin()
-   {
-     $this->browse(function ($browser){
-         $browser->visit('/login')
-                 ->assertSee('Login');
-     });
-   }
-
-   public function testInvalidUserLogin(){
-
-     $this->browse(function ($browser) {
-         $browser->visit('/login')
-                 ->type('email','jan@qq.com')
-                 ->type('password','testpassword')
-                 ->press('login')
-                 ->assertSee('These credentials do not match our records.');
-     });
-   }
-
+      $this->browse(function ($browser) {
+          $browser->visit('/login')
+                  ->type('email','jan@qq.com')
+                  ->type('password','testpassword')
+                  ->press('login')
+                  ->assertSee('These credentials do not match our records.');
+      });
+    }
 }

@@ -13,6 +13,14 @@
           <form role="form" method="POST" action="{{ route('login') }}">
             {{ csrf_field() }}
             <fieldset>
+              <div id="selectBusiness" class="form-group">
+                <select id="businessName"  class="form-control">
+                                                <option disabled selected hidden>Select Business</option>
+                                                <option>Hair Salon</option>
+                                                <option>Happy Gym</option>
+                </select>
+              </div>
+
               <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 
                 <input id="email" type="email" placeholder="Email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>

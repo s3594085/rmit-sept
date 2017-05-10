@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 class Booking extends Model
 {
   protected $fillable = [
-    'date', 'start', 'end', 'employee_id',
+    'date', 'start', 'end', 'employee_id', 'service_id',
   ];
 
   public static function validator(array $data) {
@@ -17,6 +17,7 @@ class Booking extends Model
       'start' => 'required',
       'end' => 'required',
       'employee_id' => 'required',
+      'service_id' => 'required',
     ]);
   }
 }
