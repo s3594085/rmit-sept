@@ -149,11 +149,16 @@
             <li>
               <a href="#"><i class="fa fa-calendar fa-fw"></i> Timetable<span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
+                <!--
                 <li>
                   <a href="{{ route('view_available_booking') }}/1">View Availability</a>
                 </li>
+                -->
                 <li>
                   <a href="{{ route('view_my_booking') }}">My Booking</a>
+                </li>
+                <li>
+                  <a href="{{ route('add_booking') }}">Add Booking</a>
                 </li>
               </ul>
             </li>

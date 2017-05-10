@@ -44,6 +44,10 @@ Route::get('/mybooking', 'BookingController@viewMyBooking')->name('view_my_booki
 Route::get('/viewavailablebooking/{id}', 'BookingController@ViewAvailableBooking');
 Route::get('/viewavailablebooking', 'BookingController@ViewAvailableBooking')->name('view_available_booking');
 
+Route::get('/addBooking', 'BookingController@AddBooking')->name('add_booking');
+Route::post('/addBooking', 'BookingController@AddBooking')->name('add_booking');
+Route::get('/addBooking/{service_id}/{employee_id}', 'BookingController@AddBookingGET');
+
 // Booking Customer
 Route::get('/customerbooking/{id}', 'BookingController@CustomerBooking');
 Route::get('/customerbooking', 'BookingController@CustomerBooking')->name('booking_cus');
