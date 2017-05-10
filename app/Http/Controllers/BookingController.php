@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Booking;
+use App\Service;
+use App\Employee;
+
 use Auth;
 use URL;
 use Session;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Service;
 
 class BookingController extends Controller
 {
@@ -64,7 +67,7 @@ class BookingController extends Controller
         ]);
 
         Session::flash('success', "Booking successful added!");
-        return redirect(URL::previous());
+        return redirect()->back();
       } else {
         return redirect(URL::previous())->withErrors($valid)->withInput();
       }
@@ -107,6 +110,7 @@ class BookingController extends Controller
       ]);
     }
 
+    /*
     //Customer view all available booking
     public function ViewAvailableBooking(Request $data, $id) {
       $employees = DB::select('SELECT * FROM employees');
@@ -124,6 +128,7 @@ class BookingController extends Controller
         'bookings' => $bookings,
       ]);
     }
+    */
 
     //Owner view all available booking for customer
     public function CustomerBooking(Request $data, $id) {
@@ -142,6 +147,36 @@ class BookingController extends Controller
         'single_service' => $single_service,
         'bookings' => $bookings,
         'users' => $users,
+      ]);
+    }
+
+    //Customer add bookings
+    public function AddBooking(Request $data) {
+      if ($data->isMethod('post')) {
+        return redirect(route('add_booking') . "/" . $data['service'] . "/" . $data['employee']);
+      } else {
+        $employees = DB::select('SELECT * FROM employees');
+        $services = DB::select('SELECT * FROM services');
+
+        return view('addBooking', [
+          'employees' => $employees,
+          'services' => $services,
+        ]);
+      }
+    }
+
+    public function AddBookingGET(Request $data, $service_id, $employee_id) {
+      $employee = Employee::find($employee_id);
+      $single_service = Service::find($service_id);
+
+      $availability = DB::select('SELECT * FROM employee_times WHERE employee_id = ?', [$employee_id]);
+      $bookings = DB::select('SELECT * FROM bookings');
+
+      return view('viewAvailableTime', [
+        'employee' => $employee,
+        'availability' => $availability,
+        'single_service' => $single_service,
+        'bookings' => $bookings,
       ]);
     }
 }

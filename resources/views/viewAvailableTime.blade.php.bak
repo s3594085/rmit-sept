@@ -14,7 +14,19 @@
     <div class="col-lg-12">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <strong>{{ $single_service->name }}</strong>
+          Booking Availability
+        </div>
+        <div class="panel-body">
+          <h4>Services</h4>
+          <ul class="nav nav-pills">
+            @foreach ($services as $service)
+            @if ($id == $service->id)
+            <li class="active"><a href="{{ route('view_available_booking') }}/{{ $service->id }}">{{ $service->name }}</a></li>
+            @else
+            <li class=""><a href="{{ route('view_available_booking') }}/{{ $service->id }}">{{ $service->name }}</a></li>
+            @endif
+            @endforeach
+          </ul>
         </div>
         <div class="panel-body">
           @if (Session::has('success'))
@@ -23,7 +35,7 @@
               {{ Session::get('success') }}
           </div>
           @endif
-
+          @foreach ($employees as $employee)
           <div class="row">
             <div class="col-lg-12">
               <div class="panel panel-default">
@@ -33,25 +45,25 @@
                 <div class="panel-body">
                   <!-- Nav tabs -->
                   <ul class="nav nav-pills">
-                    <li class="active"><a href="#monday-pills" data-toggle="tab" aria-expanded="true">Monday</a>
+                    <li class="active"><a href="#monday-pills{{ $employee->id }}" data-toggle="tab" aria-expanded="true">Monday</a>
                     </li>
-                    <li class=""><a href="#tuesday-pills" data-toggle="tab" aria-expanded="false">Tuesday</a>
+                    <li class=""><a href="#tuesday-pills{{ $employee->id }}" data-toggle="tab" aria-expanded="false">Tuesday</a>
                     </li>
-                    <li class=""><a href="#wednesday-pills" data-toggle="tab" aria-expanded="false">Wednesday</a>
+                    <li class=""><a href="#wednesday-pills{{ $employee->id }}" data-toggle="tab" aria-expanded="false">Wednesday</a>
                     </li>
-                    <li class=""><a href="#thursday-pills" data-toggle="tab" aria-expanded="false">Thursday</a>
+                    <li class=""><a href="#thursday-pills{{ $employee->id }}" data-toggle="tab" aria-expanded="false">Thursday</a>
                     </li>
-                    <li class=""><a href="#friday-pills" data-toggle="tab" aria-expanded="false">Friday</a>
+                    <li class=""><a href="#friday-pills{{ $employee->id }}" data-toggle="tab" aria-expanded="false">Friday</a>
                     </li>
-                    <li class=""><a href="#saturday-pills" data-toggle="tab" aria-expanded="false">Saturday</a>
+                    <li class=""><a href="#saturday-pills{{ $employee->id }}" data-toggle="tab" aria-expanded="false">Saturday</a>
                     </li>
-                    <li class=""><a href="#sunday-pills" data-toggle="tab" aria-expanded="false">Sunday</a>
+                    <li class=""><a href="#sunday-pills{{ $employee->id }}" data-toggle="tab" aria-expanded="false">Sunday</a>
                     </li>
                   </ul>
 
                   <!-- Tab panes -->
                   <div class="tab-content">
-                    <div class="tab-pane fade active in" id="monday-pills">
+                    <div class="tab-pane fade active in" id="monday-pills{{ $employee->id }}">
                       <h4>Monday</h4>
                       <form role="form" method="POST" action="{{ route('create_booking') }}">
                         {{ csrf_field() }}
@@ -69,7 +81,7 @@
                               $j = 0;
                               ?>
                             @foreach ($availability as $available)
-                              @if ($available->day == "Monday")
+                              @if ($available->day == "Monday" && $available->employee_id == $employee->id)
                                 <?php
                                 $dd = strtotime($available->end) - strtotime($available->start);
                                 $times = floor($dd / $single_service->duration);
@@ -100,7 +112,7 @@
                               -->
                                 @if (strtotime($value) >= strtotime($booking->start) && strtotime($value) + $single_service->duration <= strtotime($booking->end)
                                 || strtotime($value) <= strtotime($booking->start) && strtotime($value) + $single_service->duration >= strtotime($booking->end))
-                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this monday' )) || $booking->user_id == Auth::user()->id)
+                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this monday' )) && $booking->employee_id == $employee->id)
                                   <?php
                                     //echo $all_start[$key] . " - " . $all_end[$key] . " booked <br>";
                                     unset($all_start[$key]);
@@ -116,7 +128,7 @@
                               <input type="hidden" name="date[]" value="{{ date( 'Y-m-d', strtotime( 'next ' . $all_day[$key] ) ) }}">
                               <input type="hidden" name="start[]" value="{{ date('H:i', strtotime($value)) }}">
                               <input type="hidden" name="end[]" value="{{ date('H:i', strtotime($all_end[$key])) }}">
-                              <input type="hidden" name="service_id[]" value="{{ $single_service->id }}">
+                              <input type="hidden" name="service_id[]" value="{{ $id }}">
                               <input type="hidden" name="employee_id[]" value="{{ $employee->id }}">
                               <tr class="gradeA">
                                 <td>{{ $all_day[$key] }}</td>
@@ -137,7 +149,7 @@
                         </table>
                       </form>
                     </div>
-                    <div class="tab-pane fade" id="tuesday-pills">
+                    <div class="tab-pane fade" id="tuesday-pills{{ $employee->id }}">
                       <h4>Tuesday</h4>
                       <form role="form" method="POST" action="{{ route('create_booking') }}">
                         {{ csrf_field() }}
@@ -155,7 +167,7 @@
                               $j = 0;
                               ?>
                             @foreach ($availability as $available)
-                              @if ($available->day == "Tuesday")
+                              @if ($available->day == "Tuesday" && $available->employee_id == $employee->id)
                                 <?php
                                 $dd = strtotime($available->end) - strtotime($available->start);
                                 $times = floor($dd / $single_service->duration);
@@ -186,7 +198,7 @@
                               -->
                                 @if (strtotime($value) >= strtotime($booking->start) && strtotime($value) + $single_service->duration <= strtotime($booking->end)
                                 || strtotime($value) <= strtotime($booking->start) && strtotime($value) + $single_service->duration >= strtotime($booking->end))
-                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this tuesday' )) || $booking->user_id == Auth::user()->id)
+                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this tuesday' )) && $booking->employee_id == $employee->id)
                                   <?php
                                     // echo $all_start[$key] . " - " . $all_end[$key] . " booked <br>";
                                     unset($all_start[$key]);
@@ -202,7 +214,7 @@
                               <input type="hidden" name="date[]" value="{{ date( 'Y-m-d', strtotime( 'next ' . $all_day[$key] ) ) }}">
                               <input type="hidden" name="start[]" value="{{ date('H:i', strtotime($value)) }}">
                               <input type="hidden" name="end[]" value="{{ date('H:i', strtotime($all_end[$key])) }}">
-                              <input type="hidden" name="service_id[]" value="{{ $single_service->id }}">
+                              <input type="hidden" name="service_id[]" value="{{ $id }}">
                               <input type="hidden" name="employee_id[]" value="{{ $employee->id }}">
                               <tr class="gradeA">
                                 <td>{{ $all_day[$key] }}</td>
@@ -223,7 +235,7 @@
                           </table>
                       </form>
                     </div>
-                    <div class="tab-pane fade" id="wednesday-pills">
+                    <div class="tab-pane fade" id="wednesday-pills{{ $employee->id }}">
                       <h4>Wednesday</h4>
                       <form role="form" method="POST" action="{{ route('create_booking') }}">
                         {{ csrf_field() }}
@@ -239,7 +251,7 @@
                           <tbody>
                             <?php $j = 0; ?>
                             @foreach ($availability as $available)
-                              @if ($available->day == "Wednesday")
+                              @if ($available->day == "Wednesday" && $available->employee_id == $employee->id)
                                 <?php
                                 $dd = strtotime($available->end) - strtotime($available->start);
                                 $times = floor($dd / $single_service->duration);
@@ -270,7 +282,7 @@
                               -->
                                 @if (strtotime($value) >= strtotime($booking->start) && strtotime($value) + $single_service->duration <= strtotime($booking->end)
                                 || strtotime($value) <= strtotime($booking->start) && strtotime($value) + $single_service->duration >= strtotime($booking->end))
-                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this wednesday' )) || $booking->user_id == Auth::user()->id)
+                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this wednesday' )) && $booking->employee_id == $employee->id)
                                   <?php
                                     // echo $all_start[$key] . " - " . $all_end[$key] . " booked <br>";
                                     unset($all_start[$key]);
@@ -286,7 +298,7 @@
                               <input type="hidden" name="date[]" value="{{ date( 'Y-m-d', strtotime( 'next ' . $all_day[$key] ) ) }}">
                               <input type="hidden" name="start[]" value="{{ date('H:i', strtotime($value)) }}">
                               <input type="hidden" name="end[]" value="{{ date('H:i', strtotime($all_end[$key])) }}">
-                              <input type="hidden" name="service_id[]" value="{{ $single_service->id }}">
+                              <input type="hidden" name="service_id[]" value="{{ $id }}">
                               <input type="hidden" name="employee_id[]" value="{{ $employee->id }}">
                               <tr class="gradeA">
                                 <td>{{ $all_day[$key] }}</td>
@@ -307,7 +319,7 @@
                           </table>
                       </form>
                     </div>
-                    <div class="tab-pane fade" id="thursday-pills">
+                    <div class="tab-pane fade" id="thursday-pills{{ $employee->id }}">
                       <h4>Thursday</h4>
                       <form role="form" method="POST" action="{{ route('create_booking') }}">
                         {{ csrf_field() }}
@@ -323,7 +335,7 @@
                           <tbody>
                             <?php $j = 0; ?>
                             @foreach ($availability as $available)
-                              @if ($available->day == "Thursday")
+                              @if ($available->day == "Thursday" && $available->employee_id == $employee->id)
                                 <?php
                                 $dd = strtotime($available->end) - strtotime($available->start);
                                 $times = floor($dd / $single_service->duration);
@@ -354,7 +366,7 @@
                               -->
                                 @if (strtotime($value) >= strtotime($booking->start) && strtotime($value) + $single_service->duration <= strtotime($booking->end)
                                 || strtotime($value) <= strtotime($booking->start) && strtotime($value) + $single_service->duration >= strtotime($booking->end))
-                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this thursday' )) || $booking->user_id == Auth::user()->id)
+                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this thursday' )) && $booking->employee_id == $employee->id)
                                   <?php
                                     // echo $all_start[$key] . " - " . $all_end[$key] . " booked <br>";
                                     unset($all_start[$key]);
@@ -370,7 +382,7 @@
                               <input type="hidden" name="date[]" value="{{ date( 'Y-m-d', strtotime( 'next ' . $all_day[$key] ) ) }}">
                               <input type="hidden" name="start[]" value="{{ date('H:i', strtotime($value)) }}">
                               <input type="hidden" name="end[]" value="{{ date('H:i', strtotime($all_end[$key])) }}">
-                              <input type="hidden" name="service_id[]" value="{{ $single_service->id }}">
+                              <input type="hidden" name="service_id[]" value="{{ $id }}">
                               <input type="hidden" name="employee_id[]" value="{{ $employee->id }}">
                               <tr class="gradeA">
                                 <td>{{ $all_day[$key] }}</td>
@@ -391,7 +403,7 @@
                           </table>
                       </form>
                     </div>
-                    <div class="tab-pane fade" id="friday-pills">
+                    <div class="tab-pane fade" id="friday-pills{{ $employee->id }}">
                       <h4>Friday</h4>
                       <form role="form" method="POST" action="{{ route('create_booking') }}">
                         {{ csrf_field() }}
@@ -407,7 +419,7 @@
                           <tbody>
                             <?php $j = 0; ?>
                             @foreach ($availability as $available)
-                              @if ($available->day == "Friday")
+                              @if ($available->day == "Friday" && $available->employee_id == $employee->id)
                                 <?php
                                 $dd = strtotime($available->end) - strtotime($available->start);
                                 $times = floor($dd / $single_service->duration);
@@ -438,7 +450,7 @@
                               -->
                                 @if (strtotime($value) >= strtotime($booking->start) && strtotime($value) + $single_service->duration <= strtotime($booking->end)
                                 || strtotime($value) <= strtotime($booking->start) && strtotime($value) + $single_service->duration >= strtotime($booking->end))
-                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this friday' )) || $booking->user_id == Auth::user()->id)
+                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this friday' )) && $booking->employee_id == $employee->id)
                                   <?php
                                     // echo $all_start[$key] . " - " . $all_end[$key] . " booked <br>";
                                     unset($all_start[$key]);
@@ -454,7 +466,7 @@
                               <input type="hidden" name="date[]" value="{{ date( 'Y-m-d', strtotime( 'next ' . $all_day[$key] ) ) }}">
                               <input type="hidden" name="start[]" value="{{ date('H:i', strtotime($value)) }}">
                               <input type="hidden" name="end[]" value="{{ date('H:i', strtotime($all_end[$key])) }}">
-                              <input type="hidden" name="service_id[]" value="{{ $single_service->id }}">
+                              <input type="hidden" name="service_id[]" value="{{ $id }}">
                               <input type="hidden" name="employee_id[]" value="{{ $employee->id }}">
                               <tr class="gradeA">
                                 <td>{{ $all_day[$key] }}</td>
@@ -475,7 +487,7 @@
                           </table>
                       </form>
                     </div>
-                    <div class="tab-pane fade" id="saturday-pills">
+                    <div class="tab-pane fade" id="saturday-pills{{ $employee->id }}">
                       <h4>Saturday</h4>
                       <form role="form" method="POST" action="{{ route('create_booking') }}">
                         {{ csrf_field() }}
@@ -491,7 +503,7 @@
                           <tbody>
                             <?php $j = 0; ?>
                             @foreach ($availability as $available)
-                              @if ($available->day == "Saturday")
+                              @if ($available->day == "Saturday" && $available->employee_id == $employee->id)
                                 <?php
                                 $dd = strtotime($available->end) - strtotime($available->start);
                                 $times = floor($dd / $single_service->duration);
@@ -522,7 +534,7 @@
                               -->
                                 @if (strtotime($value) >= strtotime($booking->start) && strtotime($value) + $single_service->duration <= strtotime($booking->end)
                                 || strtotime($value) <= strtotime($booking->start) && strtotime($value) + $single_service->duration >= strtotime($booking->end))
-                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this saturday' )) || $booking->user_id == Auth::user()->id)
+                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this saturday' )) && $booking->employee_id == $employee->id)
                                   <?php
                                     // echo $all_start[$key] . " - " . $all_end[$key] . " booked <br>";
                                     unset($all_start[$key]);
@@ -538,7 +550,7 @@
                               <input type="hidden" name="date[]" value="{{ date( 'Y-m-d', strtotime( 'next ' . $all_day[$key] ) ) }}">
                               <input type="hidden" name="start[]" value="{{ date('H:i', strtotime($value)) }}">
                               <input type="hidden" name="end[]" value="{{ date('H:i', strtotime($all_end[$key])) }}">
-                              <input type="hidden" name="service_id[]" value="{{ $single_service->id }}">
+                              <input type="hidden" name="service_id[]" value="{{ $id }}">
                               <input type="hidden" name="employee_id[]" value="{{ $employee->id }}">
                               <tr class="gradeA">
                                 <td>{{ $all_day[$key] }}</td>
@@ -559,7 +571,7 @@
                           </table>
                       </form>
                     </div>
-                    <div class="tab-pane fade" id="sunday-pills">
+                    <div class="tab-pane fade" id="sunday-pills{{ $employee->id }}">
                       <h4>Sunday</h4>
                       <form role="form" method="POST" action="{{ route('create_booking') }}">
                         {{ csrf_field() }}
@@ -575,7 +587,7 @@
                           <tbody>
                             <?php $j = 0; ?>
                             @foreach ($availability as $available)
-                              @if ($available->day == "Sunday")
+                              @if ($available->day == "Sunday" && $available->employee_id == $employee->id)
                                 <?php
                                 $dd = strtotime($available->end) - strtotime($available->start);
                                 $times = floor($dd / $single_service->duration);
@@ -606,7 +618,7 @@
                               -->
                                 @if (strtotime($value) >= strtotime($booking->start) && strtotime($value) + $single_service->duration <= strtotime($booking->end)
                                 || strtotime($value) <= strtotime($booking->start) && strtotime($value) + $single_service->duration >= strtotime($booking->end))
-                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this sunday' )) || $booking->user_id == Auth::user()->id)
+                                  @if ($booking->date == date( 'Y-m-d', strtotime( 'this sunday' )) && $booking->employee_id == $employee->id)
                                   <?php
                                     // echo $all_start[$key] . " - " . $all_end[$key] . " booked <br>";
                                     unset($all_start[$key]);
@@ -622,7 +634,7 @@
                               <input type="hidden" name="date[]" value="{{ date( 'Y-m-d', strtotime( 'next ' . $all_day[$key] ) ) }}">
                               <input type="hidden" name="start[]" value="{{ date('H:i', strtotime($value)) }}">
                               <input type="hidden" name="end[]" value="{{ date('H:i', strtotime($all_end[$key])) }}">
-                              <input type="hidden" name="service_id[]" value="{{ $single_service->id }}">
+                              <input type="hidden" name="service_id[]" value="{{ $id }}">
                               <input type="hidden" name="employee_id[]" value="{{ $employee->id }}">
                               <tr class="gradeA">
                                 <td>{{ $all_day[$key] }}</td>
@@ -648,7 +660,7 @@
               </div>
             </div>
           </div>
-
+          @endforeach
         </div>
       </div>
     </div>
