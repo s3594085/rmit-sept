@@ -146,17 +146,19 @@
             <li>
               <a href="{{ url('/home') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
+			@if (!Auth::user()->owner)
             <li>
-              <a href="#"><i class="fa fa-calendar fa-fw"></i> Timetable<span class="fa arrow"></span></a>
+              <a href="#"><i class="fa fa-calendar fa-fw"></i> Booking<span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <li>
-                  <a href="{{ route('view_available_booking') }}/1">View Availability</a>
+                  <a href="{{ route('view_available_booking') }}/1">Add Booking</a>
                 </li>
                 <li>
                   <a href="{{ route('view_my_booking') }}">My Booking</a>
                 </li>
               </ul>
             </li>
+			@endif
             @if (Auth::user()->owner)
             <li>
               <a href="#"><i class="fa fa-group fa-fw"></i> Employee<span class="fa arrow"></span></a>
