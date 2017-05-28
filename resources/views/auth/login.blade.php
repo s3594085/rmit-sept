@@ -13,6 +13,18 @@
           <form role="form" method="POST" action="{{ route('login') }}">
             {{ csrf_field() }}
             <fieldset>
+              @if (Request::is('login'))
+              <div class="form-group{{ $errors->has('business') ? ' has-error' : '' }}">
+                <select id="business" name="business" class="form-control" placeholder="Business" required>
+                  <option value="">Select Business</option>
+
+                  @foreach ($businesses as $business)
+                  <option value="{{ $business->id }}">{{ $business->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+              @endif
+
               <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 
                 <input id="email" type="email" placeholder="Email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>

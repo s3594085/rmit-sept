@@ -21,6 +21,8 @@ class EmployeeTable extends Migration
             $table->string('mobile');
             $table->string('street');
             $table->string('city');
+            $table->integer('business_id');
+            $table->foreign('business_id')->references('id')->on('businesses')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -17,6 +17,8 @@ class ServiceTable extends Migration
           $table->increments('id');
           $table->string('name');
           $table->integer('duration');
+          $table->integer('business_id');
+          $table->foreign('business_id')->references('id')->on('businesses')->onDelete('cascade');
           $table->timestamps();
       });
     }

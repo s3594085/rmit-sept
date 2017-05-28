@@ -32,6 +32,7 @@ class ServiceController extends Controller
       Service::create([
           'name' => $data['name'],
           'duration' => $time_seconds,
+          'business_id' => session('business'),
       ]);
 
       Session::flash('success', $data['name'] . " successful created!");
@@ -43,7 +44,7 @@ class ServiceController extends Controller
 
   //List all services view
   public function viewServices() {
-    $services = DB::select('SELECT * FROM services');
+    $services = DB::select('SELECT * FROM services WHERE business_id = ?', [session('business')]);
 
     return view('viewservices', [
       'services' => $services,

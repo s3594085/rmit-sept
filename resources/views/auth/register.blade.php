@@ -13,6 +13,17 @@
           <form role="form" method="POST" action="{{ route('register') }}">
             {{ csrf_field() }}
             <fieldset>
+
+              <div class="form-group{{ $errors->has('business') ? ' has-error' : '' }}">
+                <select id="business" name="business" class="form-control" placeholder="Business" required>
+                  <option value="">Select Business</option>
+
+                  @foreach ($businesses as $business)
+                  <option value="{{ $business->id }}">{{ $business->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+
               <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
 
                 <input id="name" type="text" placeholder="Name" class="form-control" name="name" value="{{ old('name') }}" required autofocus>

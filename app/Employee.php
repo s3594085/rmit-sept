@@ -9,7 +9,7 @@ class Employee extends Model
 {
     //
     protected $fillable = [
-      'name', 'email', 'mobile', 'street', 'city',
+      'name', 'email', 'mobile', 'street', 'city', 'business_id',
     ];
 
     public static function validator(array $data) {
