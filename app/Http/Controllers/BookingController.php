@@ -56,7 +56,7 @@ class BookingController extends Controller
       $valid = Booking::validator($data->all());
 
       if ($valid->passes()) {
-        $user = User::find($data['user'][$data['book']]);
+        $user = User::find($data['user']);
 
         $user->booking()->create([
           'date' => $data['date'][$data['book']],
@@ -130,20 +130,37 @@ class BookingController extends Controller
     }
     */
 
+    //Customer add bookings
+    public function CustomerBooking(Request $data) {
+      if ($data->isMethod('post')) {
+        return redirect(route('booking_cus') . "/" . $data['service'] . "/" . $data['employee']);
+      } else {
+        $employees = DB::select('SELECT * FROM employees WHERE business_id = ?', [session('business')]);
+        $services = DB::select('SELECT * FROM services WHERE business_id = ?', [session('business')]);
+
+        return view('addBooking', [
+          'employees' => $employees,
+          'services' => $services,
+        ]);
+      }
+    }
+
     //Owner view all available booking for customer
-    public function CustomerBooking(Request $data, $id) {
-      $employees = DB::select('SELECT * FROM employees');
-      $availability = DB::select('SELECT * FROM employee_times');
-      $services = DB::select('SELECT * FROM services');
-      $bookings = DB::select('SELECT * FROM bookings');
-      $users = DB::select('SELECT * FROM users');
-      $single_service = Service::find($id);
+    public function CustomerBookingGET(Request $data, $service_id, $employee_id) {
+      $employee = Employee::find($employee_id);
+      $single_service = Service::find($service_id);
+      $users = DB::select('SELECT * FROM users WHERE business = ?', [session('business')]);
+
+      if ($employee->business_id == session('business')) {
+        $availability = DB::select('SELECT * FROM employee_times WHERE employee_id = ?', [$employee_id]);
+        $bookings = DB::select('SELECT * FROM bookings');
+      } else {
+        return redirect(route('add_booking'));
+      }
 
       return view('customerBooking', [
-        'employees' => $employees,
+        'employee' => $employee,
         'availability' => $availability,
-        'services' => $services,
-        'id' => $id,
         'single_service' => $single_service,
         'bookings' => $bookings,
         'users' => $users,
@@ -155,8 +172,8 @@ class BookingController extends Controller
       if ($data->isMethod('post')) {
         return redirect(route('add_booking') . "/" . $data['service'] . "/" . $data['employee']);
       } else {
-        $employees = DB::select('SELECT * FROM employees');
-        $services = DB::select('SELECT * FROM services');
+        $employees = DB::select('SELECT * FROM employees WHERE business_id = ?', [session('business')]);
+        $services = DB::select('SELECT * FROM services WHERE business_id = ?', [session('business')]);
 
         return view('addBooking', [
           'employees' => $employees,
@@ -169,8 +186,12 @@ class BookingController extends Controller
       $employee = Employee::find($employee_id);
       $single_service = Service::find($service_id);
 
-      $availability = DB::select('SELECT * FROM employee_times WHERE employee_id = ?', [$employee_id]);
-      $bookings = DB::select('SELECT * FROM bookings');
+      if ($employee->business_id == session('business')) {
+        $availability = DB::select('SELECT * FROM employee_times WHERE employee_id = ?', [$employee_id]);
+        $bookings = DB::select('SELECT * FROM bookings');
+      } else {
+        return redirect(route('add_booking'));
+      }
 
       return view('viewAvailableTime', [
         'employee' => $employee,

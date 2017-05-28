@@ -13,6 +13,7 @@
 
 // Login and Register route
 Auth::routes();
+Route::get('/admin', 'Auth\LoginController@showLoginForm');
 
 // HomeController Route
 Route::get('/', 'HomeController@index');
@@ -49,10 +50,21 @@ Route::post('/addBooking', 'BookingController@AddBooking')->name('add_booking');
 Route::get('/addBooking/{service_id}/{employee_id}', 'BookingController@AddBookingGET');
 
 // Booking Customer
-Route::get('/customerbooking/{id}', 'BookingController@CustomerBooking');
+Route::get('/customerbooking/{service_id}/{employee_id}', 'BookingController@CustomerBookingGET');
 Route::get('/customerbooking', 'BookingController@CustomerBooking')->name('booking_cus');
+Route::post('/customerbooking', 'BookingController@CustomerBooking')->name('booking_cus');
 
 // ServiceController Route
 Route::get('/addServices', 'ServiceController@addServices')->name('add_services');
 Route::get('/viewServices', 'ServiceController@viewServices')->name('view_services');
 Route::post('/addServices', 'ServiceController@createServices')->name('create_services');
+
+// BusinessController Route
+Route::get('/managebusiness', 'BusinessController@manageBusiness')->name('manage_business');
+Route::get('/addbusiness', 'BusinessController@addBusiness')->name('add_business');
+Route::post('/createbusiness', 'BusinessController@createBusiness')->name('create_business');
+
+// AdminController Route
+Route::get('/manageowner', 'AdminController@manageOwner')->name('manage_owner');
+Route::get('/addowner', 'AdminController@addOwner')->name('add_owner');
+Route::post('/createowner', 'AdminController@create')->name('create_owner');

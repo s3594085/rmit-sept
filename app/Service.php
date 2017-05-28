@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 class Service extends Model
 {
   protected $fillable = [
-    'name', 'duration',
+    'name', 'duration', 'business_id',
   ];
 
   public static function validator(array $data) {

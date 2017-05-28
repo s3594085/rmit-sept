@@ -59,7 +59,7 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="{{ url('/') }}">
-          {{ config('app.name', 'Laravel') }}
+          {{ session('business_name') }}
         </a>
       </div>
       <!-- /.navbar-header -->
@@ -78,7 +78,7 @@
                     <em>Yesterday</em>
                   </span>
                 </div>
-                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                <div>Good Good Day</div>
               </a>
             </li>
             <li class="divider"></li>
@@ -90,7 +90,7 @@
                     <em>Yesterday</em>
                   </span>
                 </div>
-                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
+                <div>Bad Bad Day</div>
               </a>
             </li>
             <li class="divider"></li>
@@ -146,9 +146,11 @@
             <li>
               <a href="{{ url('/home') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
-			@if (!Auth::user()->owner)
+            
+            @if (!Auth::user()->owner && !Auth::user()->admin)
+
             <li>
-              <a href="#"><i class="fa fa-calendar fa-fw"></i> Booking<span class="fa arrow"></span></a>
+              <a href="#"><i class="fa fa-check-square fa-fw"></i> Booking<span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <!--
                 <li>
@@ -163,8 +165,21 @@
                 </li>
               </ul>
             </li>
-			@endif
-            @if (Auth::user()->owner)
+            
+            @elseif (Auth::user()->owner)
+
+            <li>
+              <a href="#"><i class="fa fa-tasks fa-fw"></i> Service<span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li>
+                  <a href="{{ route('add_services') }}">Add Service</a>
+                </li>
+                <li>
+                  <a href="{{ route('view_services') }}">View Service</a>
+                </li>
+              </ul>
+            </li>
+
             <li>
               <a href="#"><i class="fa fa-group fa-fw"></i> Employee<span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
@@ -184,19 +199,33 @@
                   <a href="{{ route('booking_sum') }}">View Booking</a>
                 </li>
                 <li>
-                  <a href="{{ route('booking_cus') }}/1">Customer Booking</a>
+                  <a href="{{ route('booking_cus') }}">Customer Booking</a>
+                </li>
+              </ul>
+            </li>
+
+            @elseif (Auth::user()->admin)
+
+            <li>
+              <a href="#"><i class="fa fa-database fa-fw"></i> Business<span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li>
+                  <a href="{{ route('add_business') }}">Create Business</a>
+                </li>
+                <li>
+                  <a href="{{ route('manage_business') }}">Manage Business</a>
                 </li>
               </ul>
             </li>
 
             <li>
-              <a href="#"><i class="fa fa-tasks fa-fw"></i> Service<span class="fa arrow"></span></a>
+              <a href="#"><i class="fa fa-user fa-fw"></i> Owner<span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <li>
-                  <a href="{{ route('add_services') }}">Add Service</a>
+                  <a href="{{ route('add_owner') }}">Create Owner</a>
                 </li>
                 <li>
-                  <a href="{{ route('view_services') }}">View Service</a>
+                  <a href="{{ route('manage_owner') }}">Manage Owner</a>
                 </li>
               </ul>
             </li>

@@ -13,13 +13,17 @@
           <form role="form" method="POST" action="{{ route('login') }}">
             {{ csrf_field() }}
             <fieldset>
-              <div id="selectBusiness" class="form-group">
-                <select id="businessName"  class="form-control">
-                                                <option disabled selected hidden>Select Business</option>
-                                                <option>Hair Salon</option>
-                                                <option>Happy Gym</option>
+              @if (Request::is('login'))
+              <div class="form-group{{ $errors->has('business') ? ' has-error' : '' }}">
+                <select id="business" name="business" class="form-control" placeholder="Business" required>
+                  <option value="">Select Business</option>
+
+                  @foreach ($businesses as $business)
+                  <option value="{{ $business->id }}">{{ $business->name }}</option>
+                  @endforeach
                 </select>
               </div>
+              @endif
 
               <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
 

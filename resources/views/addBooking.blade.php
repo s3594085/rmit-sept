@@ -17,7 +17,11 @@
           Select service & employee here
         </div>
         <div class="panel-body">
+          @if (Auth::user()->owner)
+          <form role="form" method="POST" action="{{ route('booking_cus') }}">
+          @else
           <form role="form" method="POST" action="{{ route('add_booking') }}">
+          @endif
             {{ csrf_field() }}
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}" style="text-align:left;">
               <h5>Services</h5>
@@ -34,7 +38,7 @@
                 <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                 @endforeach
               </select>
-              <br>
+              <br> 
               <div id="decide">
                 <!--<button type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-times"></i></button>-->
                 <span>

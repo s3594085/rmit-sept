@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'mobile', 'street', 'city',
+        'name', 'email', 'password', 'mobile', 'street', 'city', 'business', 'owner',
     ];
 
     /**
@@ -35,7 +35,7 @@ class User extends Authenticatable
       ];
       return Validator::make($data, [
           'name' => 'required|max:255|regex:/^[a-zA-Z ]*$/',
-          'email' => 'required|email|max:255|unique:users',
+          'email' => 'required|email|max:255|unique:users,email,null,null,business,' . $data['business'],
           'password' => 'required|confirmed|min:8|regex:/^(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/',
           'mobile' => 'required|regex:/^04[0-9]{8}$/',
           'street' => 'required|max:255',
