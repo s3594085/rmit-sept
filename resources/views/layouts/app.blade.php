@@ -146,7 +146,7 @@
             <li>
               <a href="{{ url('/home') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
-
+            
             @if (!Auth::user()->owner && !Auth::user()->admin)
 
             <li>
@@ -154,7 +154,7 @@
               <ul class="nav nav-second-level">
                 <!--
                 <li>
-                  <a href="{{ route('view_available_booking') }}/1">View Availability</a>
+                  <a href="{{ route('view_available_booking') }}/1">Add Booking</a>
                 </li>
                 -->
                 <li>
@@ -165,7 +165,7 @@
                 </li>
               </ul>
             </li>
-
+            
             @elseif (Auth::user()->owner)
 
             <li>
