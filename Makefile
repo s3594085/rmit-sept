@@ -1,8 +1,5 @@
 all:
-	php composer.phar install
-	php artisan migrate:refresh
-	php artisan db:seed
 	docker-compose up -d --build
-
+	docker run --rm -v $(shell pwd):/app composer/composer install
 run:
 	docker-compose up -d
