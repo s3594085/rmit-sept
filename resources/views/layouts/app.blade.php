@@ -146,11 +146,21 @@
             <li>
               <a href="{{ url('/home') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
+<<<<<<< Updated upstream
             
+=======
+<<<<<<< HEAD
+
+>>>>>>> Stashed changes
             @if (!Auth::user()->owner && !Auth::user()->admin)
 
             <li>
               <a href="#"><i class="fa fa-check-square fa-fw"></i> Booking<span class="fa arrow"></span></a>
+=======
+			@if (!Auth::user()->owner)
+            <li>
+              <a href="#"><i class="fa fa-calendar fa-fw"></i> Booking<span class="fa arrow"></span></a>
+>>>>>>> sept-laravel
               <ul class="nav nav-second-level">
                 <!--
                 <li>
@@ -165,7 +175,12 @@
                 </li>
               </ul>
             </li>
+<<<<<<< Updated upstream
             
+=======
+<<<<<<< HEAD
+
+>>>>>>> Stashed changes
             @elseif (Auth::user()->owner)
 
             <li>
@@ -180,6 +195,10 @@
               </ul>
             </li>
 
+=======
+			@endif
+            @if (Auth::user()->owner)
+>>>>>>> sept-laravel
             <li>
               <a href="#"><i class="fa fa-group fa-fw"></i> Employee<span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
